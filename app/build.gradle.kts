@@ -8,6 +8,9 @@ android {
     namespace = "com.example.mynewsapp"
     compileSdk = 34
 
+    buildFeatures {
+        viewBinding = true
+    }
     defaultConfig {
         applicationId = "com.example.mynewsapp"
         minSdk = 26
@@ -37,7 +40,17 @@ android {
 
 dependencies {
     val roomVersion = "2.6.1"
-
+    val retrofitVersion = "2.11.0"
+    val gsonVersion = "2.11.0"
+    val glideVersion = "4.16.0"
+    val hiltVersion = "2.51"
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    ksp("com.google.dagger:hilt-android:$hiltVersion")
+    implementation("com.github.bumptech.glide:glide:$glideVersion")
+    ksp("com.github.bumptech.glide:glide:$glideVersion")
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.google.code.gson:gson:$gsonVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
     implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")
