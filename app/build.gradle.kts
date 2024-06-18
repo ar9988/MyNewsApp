@@ -44,6 +44,8 @@ dependencies {
     val gsonVersion = "2.11.0"
     val glideVersion = "4.16.0"
     val hiltVersion = "2.51"
+    val datastoreVersion = "1.1.1"
+    implementation("androidx.datastore:datastore-preferences:$datastoreVersion")
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     ksp("com.google.dagger:hilt-android:$hiltVersion")
     implementation("com.github.bumptech.glide:glide:$glideVersion")
