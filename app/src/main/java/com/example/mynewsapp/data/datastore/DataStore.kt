@@ -1,4 +1,4 @@
-package com.example.mynewsapp.util
+package com.example.mynewsapp.data.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore

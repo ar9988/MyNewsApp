@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynewsapp.databinding.CategoryRecyclerItemBinding
 import com.example.mynewsapp.ui.model.CategoryItemModel

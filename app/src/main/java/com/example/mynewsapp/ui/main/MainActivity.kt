@@ -11,7 +11,7 @@ import com.example.mynewsapp.ui.detail.CategoryFragment
 import com.example.mynewsapp.ui.detail.HomeFragment
 import com.example.mynewsapp.ui.detail.SearchFragment
 import com.example.mynewsapp.ui.detail.SettingsFragment
-import com.example.mynewsapp.util.dataStore
+import com.example.mynewsapp.data.datastore.dataStore
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

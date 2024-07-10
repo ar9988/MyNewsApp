@@ -13,7 +13,7 @@ import com.example.mynewsapp.R
 import com.example.mynewsapp.databinding.CategorySelectBinding
 import com.example.mynewsapp.ui.adapter.CategoryRecyclerAdapter
 import com.example.mynewsapp.ui.model.CategoryItemModel
-import com.example.mynewsapp.util.dataStore
+import com.example.mynewsapp.data.datastore.dataStore
 import kotlinx.coroutines.launch
 
 class CategoryFragment: Fragment() {

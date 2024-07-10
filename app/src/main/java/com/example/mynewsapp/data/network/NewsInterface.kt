@@ -1,4 +1,4 @@
-package com.example.mynewsapp.network
+package com.example.mynewsapp.data.network
 
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -19,7 +19,7 @@ interface NewsInterface{
 }
 
 object NewsService{
-    private val newsInterface:NewsInterface
+    private val newsInterface: NewsInterface
 
     init {
         val retrofit = Retrofit.Builder()

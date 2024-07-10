@@ -8,7 +8,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.mynewsapp.databinding.HomeFragmentBinding
-import com.example.mynewsapp.util.dataStore
+import com.example.mynewsapp.data.datastore.dataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -28,7 +28,8 @@ class HomeFragment: Fragment() {
         }
         lifecycleScope.launch {
             categoryFlow.collect{
-                binding.testTv.text = it
+                val category = it
+                binding.testTv.text = category
             }
         }
         return binding.root
