@@ -1,4 +1,4 @@
-package com.example.mynewsapp.data.di.room
+package com.example.mynewsapp.di.room
 
 import com.example.mynewsapp.data.db.Folder
 import com.example.mynewsapp.data.db.FolderDao

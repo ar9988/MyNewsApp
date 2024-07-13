@@ -1,4 +1,4 @@
-package com.example.mynewsapp.data.di.room
+package com.example.mynewsapp.di.room
 
 import androidx.lifecycle.ViewModel
 import com.example.mynewsapp.data.db.Folder

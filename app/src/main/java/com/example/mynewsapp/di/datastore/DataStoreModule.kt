@@ -1,8 +1,9 @@
-package com.example.mynewsapp.data.di.datastore
+package com.example.mynewsapp.di.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import com.example.mynewsapp.data.datastore.DataStoreInterface
 import com.example.mynewsapp.data.datastore.dataStore
 import dagger.Binds
 import dagger.Module
@@ -12,15 +13,15 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
 @Module
+@InstallIn(SingletonComponent::class)
 abstract class DataStoreModule {
 
     @Binds
     @Singleton
     abstract fun bindDataStoreRepository(
         myRepository: DataStoreRepository
-    ):DataStoreInterface
+    ): DataStoreInterface
 
     companion object{
         @Provides
