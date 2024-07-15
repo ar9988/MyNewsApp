@@ -2,6 +2,7 @@ package com.example.mynewsapp.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.lifecycleScope
 import com.example.mynewsapp.R
@@ -12,6 +13,8 @@ import com.example.mynewsapp.ui.detail.HomeFragment
 import com.example.mynewsapp.ui.detail.SearchFragment
 import com.example.mynewsapp.ui.detail.SettingsFragment
 import com.example.mynewsapp.data.datastore.dataStore
+import com.example.mynewsapp.di.datastore.DataStoreViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -19,19 +22,20 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private val dsViewModel:DataStoreViewModel by viewModels()
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+
+    lateinit var bottomNavigationView: BottomNavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        bottomNavigationView = binding.navigationBar
         setContentView(binding.root)
         setScreen()
     }
     private fun setScreen(){
-        val interestCategory = stringPreferencesKey("interestCategory")
-        val categoryFlow: Flow<String> = dataStore.data.map { preferences ->
-            preferences[interestCategory] ?: ""
-        }
+        val categoryFlow = dsViewModel.getCategory()
         lifecycleScope.launch {
             categoryFlow.collect{
                 if(it.isEmpty()){

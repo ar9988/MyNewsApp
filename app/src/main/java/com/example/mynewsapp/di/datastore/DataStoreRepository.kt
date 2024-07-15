@@ -44,6 +44,12 @@ class DataStoreRepository @Inject constructor(
         }
     }
 
+    override suspend fun removeCategory() {
+        dataStore.edit {preference->
+            preference.remove(INTEREST_CATEGORY)
+        }
+    }
+
 
     private companion object{
         val INTEREST_CATEGORY = stringPreferencesKey("interestCategory")

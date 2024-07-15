@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import androidx.fragment.app.viewModels
 import com.example.mynewsapp.di.datastore.DataStoreViewModel
 import com.example.mynewsapp.di.room.RoomViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 
 @AndroidEntryPoint
@@ -32,22 +33,15 @@ class HomeFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        roomViewModel
-        dsViewModel
-        networkViewModel
-//        val interestCategory = stringPreferencesKey("interestCategory")
-//        val categoryFlow: Flow<String> = requireContext().dataStore.data.map { preferences ->
-//            preferences[interestCategory] ?: ""
-//        }
-//        lifecycleScope.launch {
-//
-////            categoryFlow.collect{
-////                val category = it
-////                binding.testTv.text = category
-////            }
-//            //dsViewModel.getCategory()
-//        }
-        //viewModel.getHeadlines("business", "us", 1)
+        lifecycleScope.launch {
+            //binding.testTv.text=dsViewModel.getCategory().first()
+            dsViewModel.getCategory().collect{
+                binding.testTv.text = it
+            }
+        }
+        //networkViewModel.getHeadlines("business", "us", 1)
         return binding.root
     }
+
+
 }
