@@ -18,7 +18,6 @@ class DataStoreViewModel @Inject constructor(
     ) = flow {
         emit(dataStoreRepository.setCategory(category))
     }
-
     fun getCategory() = flow {
         val result = dataStoreRepository.getCategory()
         emit(result.getOrNull().orEmpty())
