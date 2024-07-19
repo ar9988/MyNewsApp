@@ -20,7 +20,7 @@ class DataStoreViewModel @Inject constructor(
     }
     fun getCategory() = flow {
         val result = dataStoreRepository.getCategory()
-        emit(result.getOrNull().orEmpty())
+        emit(result.getOrDefault(""))
     }
 
     fun removeCategoryData() {
