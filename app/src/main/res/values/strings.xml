@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MyNewsApp</string>
+    <string name="category_image_str">category image</string>
+</resources>

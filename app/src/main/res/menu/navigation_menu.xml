@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home"
+        android:title="홈"
+        android:icon="@drawable/baseline_home_24"/>
+    <item
+        android:id="@+id/menu_search"
+        android:title="검색"
+        android:icon="@drawable/baseline_search_24"/>
+    <item
+        android:id="@+id/menu_archive"
+        android:title="즐겨찾기"
+        android:icon="@drawable/baseline_archive_24"/>
+    <item
+        android:id="@+id/menu_settings"
+        android:title="설정"
+        android:icon="@drawable/baseline_settings_24"/>
+</menu>

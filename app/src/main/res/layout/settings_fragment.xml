@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/language_setting_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        android:text="검색 언어 설정"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <RadioGroup
+        app:layout_constraintVertical_bias="1"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/language_setting_txt"
+        app:layout_constraintBottom_toBottomOf="@id/language_setting_txt"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
+        <RadioButton
+            android:id="@+id/rd_btn_eng"
+            android:text="English"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <RadioButton
+            android:id="@+id/rd_btn_kor"
+            android:text="한국어"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RadioGroup>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/interest_setting_txt"
+        android:text="관심사 재설정"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/language_setting_txt"
+        app:layout_constraintTop_toTopOf="@id/language_setting_txt"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/interest_setting_btn"
+        android:text="재설정하기"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/interest_setting_txt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/interest_setting_txt"
+        app:layout_constraintTop_toTopOf="@id/interest_setting_txt"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/span_count_txt"
+        android:text="한 줄 기사 수"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/interest_setting_txt"
+        app:layout_constraintTop_toTopOf="@id/interest_setting_txt"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <EditText
+        android:id="@+id/span_count_input"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:textStyle="bold"
+        android:inputType="number"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:text="2"
+        app:layout_constraintStart_toEndOf="@id/span_count_txt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/span_count_txt"
+        app:layout_constraintTop_toTopOf="@id/span_count_txt"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
