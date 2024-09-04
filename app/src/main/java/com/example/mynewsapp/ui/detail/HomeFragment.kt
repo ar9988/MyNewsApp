@@ -13,6 +13,7 @@ import com.example.mynewsapp.di.network.NetworkViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mynewsapp.di.datastore.DataStoreViewModel
 import com.example.mynewsapp.di.room.RoomViewModel
 import com.example.mynewsapp.ui.adapter.NewsRecyclerAdapter
@@ -49,6 +50,7 @@ class HomeFragment : Fragment() {
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
             networkViewModel.headlines.collect { articles ->
+                binding.newsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
                 adapter.setList(articles)
             }
         }

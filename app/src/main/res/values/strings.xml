@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">MyNewsApp</string>
     <string name="category_image_str">category image</string>
+    <string name="select_country">검색 국가 설정</string>
+    <string name="exclude_news_com">제외할 신문사</string>
+    <string name="edit">편집하기</string>
+    <string name="resetting_interest">관심사 설정</string>
+    <string name="select_setting">설정하기</string>
 </resources>

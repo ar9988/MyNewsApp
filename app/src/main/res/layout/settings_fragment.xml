@@ -9,37 +9,29 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="32sp"
-        android:text="검색 언어 설정"
+        android:text="@string/select_country"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintVertical_bias="0.05"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-    <RadioGroup
+    <com.google.android.material.button.MaterialButton
         app:layout_constraintVertical_bias="1"
+        android:id="@+id/select_nation"
+        android:textSize="20sp"
+        android:text="@string/select_setting"
         android:layout_width="wrap_content"
-        android:orientation="horizontal"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/language_setting_txt"
         app:layout_constraintBottom_toBottomOf="@id/language_setting_txt"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" >
-        <RadioButton
-            android:id="@+id/rd_btn_eng"
-            android:text="English"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <RadioButton
-            android:id="@+id/rd_btn_kor"
-            android:text="한국어"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </RadioGroup>
+    </com.google.android.material.button.MaterialButton>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/interest_setting_txt"
-        android:text="관심사 재설정"
+        android:text="@string/resetting_interest"
         android:textStyle="bold"
         android:textSize="32sp"
         android:layout_width="wrap_content"
@@ -53,17 +45,18 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/interest_setting_btn"
-        android:text="재설정하기"
+        android:text="@string/select_setting"
+        android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/interest_setting_txt"
+        app:layout_constraintStart_toEndOf="@id/language_setting_txt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/interest_setting_txt"
         app:layout_constraintTop_toTopOf="@id/interest_setting_txt"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/span_count_txt"
-        android:text="한 줄 기사 수"
+        android:text="@string/exclude_news_com"
         android:textStyle="bold"
         android:textSize="32sp"
         android:layout_width="wrap_content"
@@ -74,18 +67,15 @@
         app:layout_constraintStart_toStartOf="@id/interest_setting_txt"
         app:layout_constraintTop_toTopOf="@id/interest_setting_txt"
         app:layout_constraintEnd_toEndOf="parent"/>
-    <EditText
-        android:id="@+id/span_count_input"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:textStyle="bold"
-        android:inputType="number"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/editing_news_com"
         android:textSize="20sp"
-        android:textAlignment="center"
-        android:text="2"
-        app:layout_constraintStart_toEndOf="@id/span_count_txt"
+        android:text="@string/edit"
+        app:layout_constraintStart_toEndOf="@id/language_setting_txt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/span_count_txt"
-        app:layout_constraintTop_toTopOf="@id/span_count_txt"/>
+        app:layout_constraintTop_toTopOf="@id/span_count_txt"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
