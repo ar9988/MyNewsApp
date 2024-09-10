@@ -39,8 +39,9 @@ class NetworkViewModel @Inject constructor(
                     if (response.isSuccessful) {
                         Log.d(TAG, "getHeadlines successful. Response code: ${response.code()}")
                         val news = response.body()
+
                         Log.d(TAG, "Received ${news?.articles?.size ?: 0} articles")
-                        _headlines.value = response.body()?.articles ?: emptyList()
+                        _headlines.value = response.body()?.articles?.filter { it.title != "[Removed]" } ?: emptyList()
                     } else {
                         Log.e(TAG, "getHeadlines failed. Response code: ${response.code()}")
                         Log.e(TAG, "Error body: ${response.errorBody()?.string()}")

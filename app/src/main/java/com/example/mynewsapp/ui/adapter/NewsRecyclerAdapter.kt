@@ -28,8 +28,8 @@ class NewsRecyclerAdapter() : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolde
 
     override fun onBindViewHolder(holder: NewsRecyclerAdapter.ViewHolder, position: Int) {
         holder.title.text = items[position].title
-        holder.author.text = items[position].author.toString()
-        holder.description.text = items[position].description
+        holder.author.text = items[position].author?.toString() ?: ""
+        holder.description.text = items[position].description ?: ""
         holder.publishedAt.text = items[position].publishedAt
         holder.source.text = items[position].source.name
     }

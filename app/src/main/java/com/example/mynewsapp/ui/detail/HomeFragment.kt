@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mynewsapp.di.datastore.DataStoreViewModel
 import com.example.mynewsapp.di.room.RoomViewModel
 import com.example.mynewsapp.ui.adapter.NewsRecyclerAdapter
+import com.example.mynewsapp.ui.view.ItemSpacingDecoration
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -46,6 +47,7 @@ class HomeFragment : Fragment() {
     }
     private fun setupRecyclerView() {
         binding.newsRecyclerView.adapter = adapter
+        binding.newsRecyclerView.addItemDecoration(ItemSpacingDecoration(16))
     }
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
