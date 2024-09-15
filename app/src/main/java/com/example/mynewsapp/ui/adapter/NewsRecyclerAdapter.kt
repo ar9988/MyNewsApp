@@ -1,6 +1,7 @@
 package com.example.mynewsapp.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynewsapp.databinding.NewsRecyclerItemBinding
@@ -15,6 +16,7 @@ class NewsRecyclerAdapter() : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolde
         val source = binding.sourceTv
         val author = binding.authorTv
         val publishedAt = binding.publishedAtTv
+        val line = binding.line2
     }
 
     override fun onCreateViewHolder(
@@ -26,13 +28,37 @@ class NewsRecyclerAdapter() : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolde
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: NewsRecyclerAdapter.ViewHolder, position: Int) {
-        holder.title.text = items[position].title
-        holder.author.text = items[position].author?.toString() ?: ""
-        holder.description.text = items[position].description ?: ""
-        holder.publishedAt.text = items[position].publishedAt
-        holder.source.text = items[position].source.name
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = items[position]
+
+        holder.title.text = item.title
+
+        val authorText = item.author?.toString() ?: ""
+        val sourceText = item.source.name
+
+        if (authorText.isNotEmpty() && authorText == sourceText) {
+            holder.author.visibility = View.GONE
+            holder.source.text = sourceText
+            holder.source.visibility = View.VISIBLE
+        } else {
+            holder.author.text = authorText
+            holder.author.visibility = if (authorText.isNotEmpty()) View.VISIBLE else View.GONE
+            holder.source.text = sourceText
+            holder.source.visibility = View.VISIBLE
+        }
+
+        val descriptionText = item.description ?: ""
+        if (descriptionText.isNotEmpty()) {
+            holder.description.text = descriptionText
+            holder.description.visibility = View.VISIBLE
+        } else {
+            holder.description.visibility = View.GONE
+            holder.line.visibility = View.GONE
+        }
+
+        holder.publishedAt.text = item.publishedAt
     }
+
 
     override fun getItemCount(): Int {
         return items.size

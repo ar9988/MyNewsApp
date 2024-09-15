@@ -64,7 +64,6 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             networkViewModel.error.collect { error ->
                 error?.let {
-                    // 에러 메시지 표시
                     Toast.makeText(context, it, Toast.LENGTH_LONG).show()
                 }
             }

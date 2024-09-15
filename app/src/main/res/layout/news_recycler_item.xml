@@ -2,24 +2,35 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:background="@drawable/border" >
+    android:background="@drawable/border">
 
-    <!-- Title TextView -->
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/title_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Title"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:maxLines="2"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toStartOf="@+id/favorite_checkbox"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/line1"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.0"/>
+
+    <CheckBox
+        android:id="@+id/favorite_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@android:drawable/btn_star"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title_tv"
+        app:layout_constraintBottom_toBottomOf="@id/title_tv"/>
 
     <View
         android:id="@+id/line1"
@@ -33,26 +44,30 @@
         app:layout_constraintTop_toBottomOf="@id/title_tv"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Source TextView -->
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/source_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Source"
         android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/line1"
-        app:layout_constraintBottom_toTopOf="@id/publishedAt_tv"/>
+        app:layout_constraintBottom_toTopOf="@id/author_tv"/>
 
-    <!-- Author TextView -->
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/author_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Author"
         android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/line1"
+        app:layout_constraintTop_toBottomOf="@id/source_tv"
         app:layout_constraintBottom_toTopOf="@id/publishedAt_tv"/>
 
     <!-- PublishedAt TextView -->
@@ -65,7 +80,7 @@
         android:gravity="end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/source_tv"
+        app:layout_constraintTop_toBottomOf="@id/author_tv"
         app:layout_constraintBottom_toTopOf="@id/line2"/>
 
     <View
@@ -79,13 +94,14 @@
         app:layout_constraintTop_toBottomOf="@id/publishedAt_tv"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Description TextView -->
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/description_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Description"
         android:textSize="16sp"
+        android:maxLines="3"
+        android:ellipsize="end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/line2"
