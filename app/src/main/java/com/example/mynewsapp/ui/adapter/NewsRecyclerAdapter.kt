@@ -51,6 +51,7 @@ class NewsRecyclerAdapter() : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolde
         if (descriptionText.isNotEmpty()) {
             holder.description.text = descriptionText
             holder.description.visibility = View.VISIBLE
+            holder.line.visibility = View.VISIBLE
         } else {
             holder.description.visibility = View.GONE
             holder.line.visibility = View.GONE

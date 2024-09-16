@@ -2,6 +2,7 @@ package com.example.mynewsapp.di.network
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.example.mynewsapp.data.NewsRepository
 import com.example.mynewsapp.datasource.network.dto.News
 import com.example.mynewsapp.datasource.network.NewsInterface
 import com.example.mynewsapp.datasource.network.dto.Article
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NetworkViewModel @Inject constructor(
-    private val newsInterface: NewsInterface
+    private val newsInterface: NewsInterface,
+    private val newsRepository: NewsRepository
 ) : ViewModel() {
     companion object {
         private const val TAG = "NetworkViewModel"
@@ -34,7 +36,7 @@ class NetworkViewModel @Inject constructor(
     fun getHeadlines(category: String,country: String, page: Int) {
         _isLoading.value = true
         _error.value = null
-        newsInterface.getHeadLines(category,country, page).enqueue(object : Callback<News> {
+        newsRepository.getHeadlines(category,country,page).enqueue(object : Callback<News> {
             override fun onResponse(call: Call<News>, response: Response<News>) {
                     if (response.isSuccessful) {
                         Log.d(TAG, "getHeadlines successful. Response code: ${response.code()}")

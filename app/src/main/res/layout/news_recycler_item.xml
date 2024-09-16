@@ -27,7 +27,7 @@
         android:id="@+id/favorite_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:button="@android:drawable/btn_star"
+        android:button="@drawable/custom_star_selector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/title_tv"
         app:layout_constraintBottom_toBottomOf="@id/title_tv"/>
