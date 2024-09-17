@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.mynewsapp.data.NewsRepository
 import com.example.mynewsapp.datasource.network.dto.News
-import com.example.mynewsapp.datasource.network.NewsInterface
 import com.example.mynewsapp.datasource.network.dto.Article
+import com.example.mynewsapp.di.room.RoomRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,8 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NetworkViewModel @Inject constructor(
-    private val newsInterface: NewsInterface,
-    private val newsRepository: NewsRepository
+    private val newsRepository: NewsRepository,
+    private val roomRepository: RoomRepository
 ) : ViewModel() {
     companion object {
         private const val TAG = "NetworkViewModel"
@@ -40,9 +40,6 @@ class NetworkViewModel @Inject constructor(
             override fun onResponse(call: Call<News>, response: Response<News>) {
                     if (response.isSuccessful) {
                         Log.d(TAG, "getHeadlines successful. Response code: ${response.code()}")
-                        val news = response.body()
-
-                        Log.d(TAG, "Received ${news?.articles?.size ?: 0} articles")
                         _headlines.value = response.body()?.articles?.filter { it.title != "[Removed]" } ?: emptyList()
                     } else {
                         Log.e(TAG, "getHeadlines failed. Response code: ${response.code()}")
@@ -61,7 +58,7 @@ class NetworkViewModel @Inject constructor(
     }
 
     fun getAllNews(query: String, page: Int) {
-        newsInterface.getAllNews(query, page).enqueue(object : Callback<News> {
+        newsRepository.getAllNews(query, page).enqueue(object : Callback<News> {
             override fun onResponse(call: Call<News>, response: Response<News>) {
                 // 응답 처리
             }

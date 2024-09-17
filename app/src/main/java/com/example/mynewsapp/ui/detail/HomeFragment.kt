@@ -1,6 +1,9 @@
 package com.example.mynewsapp.ui.detail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +19,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mynewsapp.di.datastore.DataStoreViewModel
 import com.example.mynewsapp.di.room.RoomViewModel
+import com.example.mynewsapp.ui.adapter.CategoryRecyclerAdapter
 import com.example.mynewsapp.ui.adapter.NewsRecyclerAdapter
 import com.example.mynewsapp.ui.view.ItemSpacingDecoration
 
@@ -46,6 +50,16 @@ class HomeFragment : Fragment() {
         }
     }
     private fun setupRecyclerView() {
+        adapter.setOnClickListener(object: NewsRecyclerAdapter.OnItemClickListener{
+            override fun onItemClick(v: View, position: Int) {
+                Log.d("item Clicked", "clicked: ${adapter.getItems()[position].url}")
+                val url = adapter.getItems()[position].url
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(url)
+                }
+                startActivity(intent)
+            }
+        })
         binding.newsRecyclerView.adapter = adapter
         binding.newsRecyclerView.addItemDecoration(ItemSpacingDecoration(16))
     }

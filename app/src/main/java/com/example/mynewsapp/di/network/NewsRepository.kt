@@ -17,6 +17,10 @@ class NewsRepository @Inject constructor(
         return newsInterface.getHeadLines(category,country,page)
     }
 
+    fun getAllNews(query: String, page: Int): Call<News> {
+        return newsInterface.getAllNews(query,page)
+    }
+
 
 //    fun getAllFavoriteArticles(): Flow<List<Article>> {
 //        return newsDao.getAllFavoriteArticles()
