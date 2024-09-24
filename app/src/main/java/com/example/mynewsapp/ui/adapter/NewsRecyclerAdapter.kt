@@ -3,14 +3,15 @@ package com.example.mynewsapp.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynewsapp.databinding.NewsRecyclerItemBinding
 import com.example.mynewsapp.datasource.network.dto.Article
 
-class NewsRecyclerAdapter() : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>(){
+class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>(){
     private lateinit var items:List<Article>
     private lateinit var clickListener: OnItemClickListener
+    private lateinit var checkBoxListener: OnCheckBoxClickListener
+
     inner class ViewHolder( binding: NewsRecyclerItemBinding):RecyclerView.ViewHolder(binding.root) {
         val title = binding.titleTv
         val description = binding.descriptionTv
@@ -18,6 +19,7 @@ class NewsRecyclerAdapter() : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolde
         val author = binding.authorTv
         val publishedAt = binding.publishedAtTv
         val line = binding.line2
+        val checkBox = binding.favoriteCheckbox
     }
     interface OnItemClickListener{
         fun onItemClick(v: View, position: Int)
@@ -25,6 +27,10 @@ class NewsRecyclerAdapter() : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolde
     fun setOnClickListener(clickListener: OnItemClickListener) {
         this.clickListener = clickListener
     }
+    fun setOnCheckBoxListener(checkBoxClickListener: OnCheckBoxClickListener){
+        this.checkBoxListener = checkBoxClickListener
+    }
+
     fun getItems() : List<Article>{
         return items
     }
@@ -72,6 +78,11 @@ class NewsRecyclerAdapter() : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolde
         holder.itemView.setOnClickListener{
             clickListener.onItemClick(holder.itemView,position)
         }
+
+        holder.checkBox.setOnCheckedChangeListener{_,isChecked ->
+            checkBoxListener.onCheckBoxClick(items[position],isChecked)
+        }
+
     }
 
 

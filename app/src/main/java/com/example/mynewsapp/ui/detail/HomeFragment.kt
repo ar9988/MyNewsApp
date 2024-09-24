@@ -17,10 +17,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mynewsapp.datasource.network.dto.Article
 import com.example.mynewsapp.di.datastore.DataStoreViewModel
 import com.example.mynewsapp.di.room.RoomViewModel
-import com.example.mynewsapp.ui.adapter.CategoryRecyclerAdapter
 import com.example.mynewsapp.ui.adapter.NewsRecyclerAdapter
+import com.example.mynewsapp.ui.adapter.OnCheckBoxClickListener
 import com.example.mynewsapp.ui.view.ItemSpacingDecoration
 
 @AndroidEntryPoint
@@ -58,6 +59,16 @@ class HomeFragment : Fragment() {
                     data = Uri.parse(url)
                 }
                 startActivity(intent)
+            }
+        })
+        adapter.setOnCheckBoxListener(object : OnCheckBoxClickListener {
+            override fun onCheckBoxClick(article: Article, isChecked: Boolean) {
+                roomViewModel
+                if(isChecked){
+                    Log.d("Checked",article.title)
+                }else{
+                    Log.d("unChecked",article.title)
+                }
             }
         })
         binding.newsRecyclerView.adapter = adapter
