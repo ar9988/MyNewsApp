@@ -50,7 +50,7 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>
         holder.title.text = item.title
 
         val authorText = item.author?.toString() ?: ""
-        val sourceText = item.source.name
+        val sourceText = item.source!!.name
 
         if (authorText.isNotEmpty() && authorText == sourceText) {
             holder.author.visibility = View.GONE

@@ -1,4 +1,4 @@
-package com.example.mynewsapp.ui.view
+package com.example.mynewsapp.ui.util
 
 import android.graphics.Rect
 import android.view.View

@@ -1,6 +1,7 @@
 package com.example.mynewsapp.di.room
 
-import com.example.mynewsapp.datasource.db.Folder
+import com.example.mynewsapp.datasource.db.ArticleEntity
+import com.example.mynewsapp.datasource.db.FolderEntity
 import com.example.mynewsapp.datasource.db.FolderDao
 import com.example.mynewsapp.datasource.db.NewsDao
 import kotlinx.coroutines.CoroutineScope
@@ -14,8 +15,21 @@ class RoomRepository @Inject constructor(
     private val newsDao:NewsDao,
     private val folderDao: FolderDao
 ){
-    private val _folders = MutableStateFlow<List<Folder>>(emptyList())
-    val folders: StateFlow<List<Folder>> = _folders
+    private val _folders = MutableStateFlow<List<FolderEntity>>(emptyList())
+    val folders: StateFlow<List<FolderEntity>> = _folders
+
+    fun insertArticle(folderId:Int, articleEntity: ArticleEntity){
+
+    }
+
+    fun getAllFolders(): List<FolderEntity> {
+        return folders.value
+    }
+
+    fun createFolder(folder: FolderEntity): Int {
+        return 0
+    }
+
 
     init {
         CoroutineScope(Dispatchers.IO).launch {

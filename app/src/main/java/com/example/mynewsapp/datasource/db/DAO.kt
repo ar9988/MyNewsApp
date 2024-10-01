@@ -9,23 +9,23 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NewsDao{
-    @Query("SELECT * FROM newsurl")
-    fun getAllURls():List<NewsUrl>
+    @Query("SELECT * FROM ArticleEntity")
+    fun getAllURls():List<ArticleEntity>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(newsUrl: NewsUrl)
+    fun insert(article: ArticleEntity)
 
     @Delete
-    fun delete(newsUrl: NewsUrl)
+    fun delete(article: ArticleEntity)
 }
 
 @Dao
 interface FolderDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(folder: Folder): Long
+    suspend fun insert(folder: FolderEntity): Long
 
     @Delete
-    suspend fun delete(folder: Folder)
+    suspend fun delete(folder: FolderEntity)
 
-    @Query("SELECT * FROM Folder")
-    fun getAllFolders(): Flow<List<Folder>>
+    @Query("SELECT * FROM FolderEntity")
+    fun getAllFolders(): Flow<List<FolderEntity>>
 }

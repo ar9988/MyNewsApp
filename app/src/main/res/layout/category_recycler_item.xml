@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
-    <com.example.mynewsapp.ui.view.OutLineTextView
+    <com.example.mynewsapp.ui.util.OutLineTextView
         android:id="@+id/category_title"
         app:outline_color="@android:color/white"
         app:outline_strokeWidth="10"

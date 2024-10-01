@@ -2,16 +2,28 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "618b0f1c37463b5606bc4b9647c5a972",
+    "identityHash": "57d9599e976c7d02fc4c78b819afb91a",
     "entities": [
       {
-        "tableName": "NewsUrl",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `url` TEXT NOT NULL, `listID` INTEGER NOT NULL, FOREIGN KEY(`listID`) REFERENCES `Folder`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "tableName": "ArticleEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `author` TEXT NOT NULL, `content` TEXT NOT NULL, `url` TEXT NOT NULL, `sourceId` TEXT NOT NULL, `sourceName` TEXT NOT NULL, `urlToImage` TEXT NOT NULL, `folderId` INTEGER NOT NULL, `title` TEXT, `description` TEXT, `publishedAt` INTEGER, FOREIGN KEY(`folderId`) REFERENCES `FolderEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "author",
+            "columnName": "author",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "content",
+            "columnName": "content",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -21,10 +33,46 @@
             "notNull": true
           },
           {
-            "fieldPath": "listID",
-            "columnName": "listID",
+            "fieldPath": "sourceId",
+            "columnName": "sourceId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceName",
+            "columnName": "sourceName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "urlToImage",
+            "columnName": "urlToImage",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "folderId",
+            "columnName": "folderId",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "publishedAt",
+            "columnName": "publishedAt",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -35,22 +83,22 @@
         },
         "indices": [
           {
-            "name": "index_NewsUrl_listID",
+            "name": "index_ArticleEntity_folderId",
             "unique": false,
             "columnNames": [
-              "listID"
+              "folderId"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_NewsUrl_listID` ON `${TABLE_NAME}` (`listID`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ArticleEntity_folderId` ON `${TABLE_NAME}` (`folderId`)"
           }
         ],
         "foreignKeys": [
           {
-            "table": "Folder",
+            "table": "FolderEntity",
             "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
-              "listID"
+              "folderId"
             ],
             "referencedColumns": [
               "id"
@@ -59,7 +107,7 @@
         ]
       },
       {
-        "tableName": "Folder",
+        "tableName": "FolderEntity",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
         "fields": [
           {
@@ -88,7 +136,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '618b0f1c37463b5606bc4b9647c5a972')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '57d9599e976c7d02fc4c78b819afb91a')"
     ]
   }
 }

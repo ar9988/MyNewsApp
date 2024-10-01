@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -55,6 +56,8 @@ dependencies {
     implementation(libs.view.model)
     implementation(libs.activity)
     implementation(libs.fragment)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.recyclerview)
 
     // KSP
     ksp(libs.ksp.api)

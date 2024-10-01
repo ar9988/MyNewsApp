@@ -22,7 +22,7 @@ import com.example.mynewsapp.di.datastore.DataStoreViewModel
 import com.example.mynewsapp.di.room.RoomViewModel
 import com.example.mynewsapp.ui.adapter.NewsRecyclerAdapter
 import com.example.mynewsapp.ui.adapter.OnCheckBoxClickListener
-import com.example.mynewsapp.ui.view.ItemSpacingDecoration
+import com.example.mynewsapp.ui.util.ItemSpacingDecoration
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -65,9 +65,11 @@ class HomeFragment : Fragment() {
             override fun onCheckBoxClick(article: Article, isChecked: Boolean) {
                 roomViewModel
                 if(isChecked){
-                    Log.d("Checked",article.title)
+                    val bottomSheetDialogFragment = FolderListDialogFragment.newInstance(article)
+                    bottomSheetDialogFragment.show(parentFragmentManager, "folderListDialog")
+                    Log.d("Checked", article.title)
                 }else{
-                    Log.d("unChecked",article.title)
+                    Log.d("unChecked", article.title)
                 }
             }
         })
@@ -98,4 +100,5 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }
