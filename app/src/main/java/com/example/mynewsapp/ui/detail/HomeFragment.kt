@@ -22,6 +22,7 @@ import com.example.mynewsapp.di.datastore.DataStoreViewModel
 import com.example.mynewsapp.di.room.RoomViewModel
 import com.example.mynewsapp.ui.adapter.NewsRecyclerAdapter
 import com.example.mynewsapp.ui.adapter.OnCheckBoxClickListener
+import com.example.mynewsapp.ui.adapter.OnItemClickListener
 import com.example.mynewsapp.ui.util.ItemSpacingDecoration
 
 @AndroidEntryPoint
@@ -51,7 +52,7 @@ class HomeFragment : Fragment() {
         }
     }
     private fun setupRecyclerView() {
-        adapter.setOnClickListener(object: NewsRecyclerAdapter.OnItemClickListener{
+        adapter.setOnClickListener(object: OnItemClickListener {
             override fun onItemClick(v: View, position: Int) {
                 Log.d("item Clicked", "clicked: ${adapter.getItems()[position].url}")
                 val url = adapter.getItems()[position].url

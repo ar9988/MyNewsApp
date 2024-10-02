@@ -14,9 +14,6 @@ class CategoryRecyclerAdapter(private val items: List<CategoryItemModel>,private
         val title = binding.categoryTitle
         val image = binding.categoryImage
     }
-    interface OnItemClickListener{
-        fun onItemClick(v: View, position: Int)
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = CategoryRecyclerItemBinding.inflate(layoutInflater,parent,false)

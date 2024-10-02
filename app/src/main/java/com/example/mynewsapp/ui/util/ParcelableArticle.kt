@@ -1,6 +1,7 @@
 package com.example.mynewsapp.ui.util
 
 import android.os.Parcelable
+import com.example.mynewsapp.datasource.db.ArticleEntity
 import com.example.mynewsapp.datasource.network.dto.Article
 import kotlinx.parcelize.Parcelize
 
@@ -30,4 +31,19 @@ data class ParcelableArticle(
     val title: String?,
     val url: String,
     val urlToImage: String,
-) : Parcelable
+) : Parcelable {
+    fun toArticleEntity(folderId:Int): ArticleEntity {
+        return ArticleEntity(
+            author = this.author ?: "Unknown Author", // 기본값 설정
+            content = this.content ?: "", // 기본값 설정
+            url = this.url,
+            sourceId = this.sourceId ?: "", // 기본값 설정
+            sourceName = this.sourceName ?: "Unknown Source", // 기본값 설정
+            urlToImage = this.urlToImage,
+            folderId = folderId, // 폴더 ID를 매개변수로 받음
+            title = this.title,
+            description = this.description,
+            publishedAt = this.publishedAt // nullable Long로 변환
+        )
+    }
+}

@@ -33,4 +33,12 @@ class FolderRecyclerAdapter() :
     fun setList(it: List<FolderEntity>) {
         folderList = it
     }
+
+    fun getItem(idx: Int):FolderEntity{
+        return folderList[idx]
+    }
+
+    fun setOnClickListener(onItemClickListener: OnItemClickListener) {
+
+    }
 }

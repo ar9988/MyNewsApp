@@ -21,9 +21,6 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>
         val line = binding.line2
         val checkBox = binding.favoriteCheckbox
     }
-    interface OnItemClickListener{
-        fun onItemClick(v: View, position: Int)
-    }
     fun setOnClickListener(clickListener: OnItemClickListener) {
         this.clickListener = clickListener
     }

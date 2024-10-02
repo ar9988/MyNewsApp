@@ -1,5 +1,6 @@
 package com.example.mynewsapp.di.room
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mynewsapp.datasource.db.ArticleEntity
@@ -9,6 +10,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+private const val TAG = "RoomViewModel"
 
 @HiltViewModel
 class RoomViewModel @Inject constructor(
@@ -25,6 +28,7 @@ class RoomViewModel @Inject constructor(
     }
 
     fun saveArticleToFolder(article: ArticleEntity, folderId: Int) {
+        Log.d(TAG, "saveArticleToFolder: ")
         viewModelScope.launch {
             repository.insertArticle(folderId,article)
         }

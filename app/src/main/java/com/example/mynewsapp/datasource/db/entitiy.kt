@@ -26,7 +26,7 @@ data class ArticleEntity(
     val folderId: Int,
     val title: String? = null,
     val description: String? = null,
-    val publishedAt: Long? = null
+    val publishedAt: String? = null
 )
 
 @Entity

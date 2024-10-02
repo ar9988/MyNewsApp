@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "57d9599e976c7d02fc4c78b819afb91a",
+    "identityHash": "aed218a04aa61db27de40ae363e12de4",
     "entities": [
       {
         "tableName": "ArticleEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `author` TEXT NOT NULL, `content` TEXT NOT NULL, `url` TEXT NOT NULL, `sourceId` TEXT NOT NULL, `sourceName` TEXT NOT NULL, `urlToImage` TEXT NOT NULL, `folderId` INTEGER NOT NULL, `title` TEXT, `description` TEXT, `publishedAt` INTEGER, FOREIGN KEY(`folderId`) REFERENCES `FolderEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `author` TEXT NOT NULL, `content` TEXT NOT NULL, `url` TEXT NOT NULL, `sourceId` TEXT NOT NULL, `sourceName` TEXT NOT NULL, `urlToImage` TEXT NOT NULL, `folderId` INTEGER NOT NULL, `title` TEXT, `description` TEXT, `publishedAt` TEXT, FOREIGN KEY(`folderId`) REFERENCES `FolderEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -71,7 +71,7 @@
           {
             "fieldPath": "publishedAt",
             "columnName": "publishedAt",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": false
           }
         ],
@@ -136,7 +136,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '57d9599e976c7d02fc4c78b819afb91a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aed218a04aa61db27de40ae363e12de4')"
     ]
   }
 }

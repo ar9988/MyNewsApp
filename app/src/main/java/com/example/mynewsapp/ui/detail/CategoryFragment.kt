@@ -13,6 +13,7 @@ import com.example.mynewsapp.databinding.CategorySelectBinding
 import com.example.mynewsapp.ui.adapter.CategoryRecyclerAdapter
 import com.example.mynewsapp.ui.model.CategoryItemModel
 import com.example.mynewsapp.di.datastore.DataStoreViewModel
+import com.example.mynewsapp.ui.adapter.OnItemClickListener
 import com.example.mynewsapp.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -20,15 +21,20 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CategoryFragment: Fragment() {
-    private val dsViewModel:DataStoreViewModel by viewModels();
-    private val binding:CategorySelectBinding by lazy{
-        CategorySelectBinding.inflate(layoutInflater)
-    }
+    private val dsViewModel:DataStoreViewModel by viewModels()
+    private var _binding:CategorySelectBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        _binding = CategorySelectBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val rv = binding.categoryRv
         val titleList = resources.getStringArray(R.array.category)
         val imageList = listOf(
@@ -43,7 +49,8 @@ class CategoryFragment: Fragment() {
         val itemList :List<CategoryItemModel> = imageList.zip(titleList){ image ,title ->
             CategoryItemModel(image,title)
         }
-        val adapter = CategoryRecyclerAdapter(itemList,requireContext(),object: CategoryRecyclerAdapter.OnItemClickListener{
+        val adapter = CategoryRecyclerAdapter(itemList,requireContext(),object:
+            OnItemClickListener {
             override fun onItemClick(v: View, position: Int) {
                 lifecycleScope.launch {
                     dsViewModel.setCategory(itemList[position].title).collect()
@@ -54,6 +61,10 @@ class CategoryFragment: Fragment() {
         })
         rv.adapter = adapter
         rv.layoutManager = GridLayoutManager(requireContext(),2)
-        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

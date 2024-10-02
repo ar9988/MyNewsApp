@@ -14,20 +14,29 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SettingsFragment:Fragment() {
     private val dsViewModel:DataStoreViewModel by viewModels()
-    private val binding:SettingsFragmentBinding by lazy {
-        SettingsFragmentBinding.inflate(layoutInflater)
-    }
+    private var _binding:SettingsFragmentBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        _binding = SettingsFragmentBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.interestSettingBtn.setOnClickListener{
             parentFragmentManager.beginTransaction().replace(
                 R.id.contentFrame,
                 CategoryFragment()
             ).commit()
         }
-        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
