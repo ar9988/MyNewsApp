@@ -23,8 +23,16 @@ class RoomViewModel @Inject constructor(
         return repository.getAllFolders()
     }
 
-    fun createFolder(folderName: String): Int {
-        return repository.createFolder(FolderEntity(name = folderName))
+    fun createFolder(folderName: String, onResult: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val result = if (!repository.isFolderNameExists(folderName)) {
+                repository.createFolder(folderName)
+                true
+            } else {
+                false
+            }
+            onResult(result)
+        }
     }
 
     fun saveArticleToFolder(article: ArticleEntity, folderId: Int) {

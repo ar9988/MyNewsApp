@@ -22,12 +22,17 @@ class RoomRepository @Inject constructor(
 
     }
 
+    suspend fun isFolderNameExists(folderName: String): Boolean {
+        return folderDao.isFolderNameExists(folderName) > 0
+    }
+
     fun getAllFolders(): List<FolderEntity> {
         return folders.value
     }
 
-    fun createFolder(folder: FolderEntity): Int {
-        return 0
+    suspend fun createFolder(folderName: String): Unit {
+        val folder = FolderEntity(name = folderName)
+        folderDao.insert(folder)
     }
 
 

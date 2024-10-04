@@ -3,9 +3,11 @@ package com.example.mynewsapp.ui.detail
 import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -31,7 +33,6 @@ class FolderListDialogFragment : BottomSheetDialogFragment() {
     private val adapter = FolderRecyclerAdapter()
     private val binding get() = _binding!!
     private var article: ParcelableArticle? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,15 +66,23 @@ class FolderListDialogFragment : BottomSheetDialogFragment() {
         val dialog = Dialog(requireContext())
         val dialogBinding = DialogCreateFolderBinding.inflate(layoutInflater)
         dialog.setContentView(dialogBinding.root)
-
+        dialog.window?.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
         dialogBinding.createFolderButton.setOnClickListener {
             val folderName = dialogBinding.folderNameEditText.text.toString().trim()
             if (folderName.isNotEmpty()) {
-                roomViewModel.createFolder(folderName)
-                Toast.makeText(requireContext(), "Folder created: $folderName", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
+                roomViewModel.createFolder(folderName) { success ->
+                    if (success) {
+                        Toast.makeText(requireContext(), "$folderName 폴더가 생성되었습니다.", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+                    } else {
+                        Toast.makeText(requireContext(), "이미 존재하는 폴더 이름입니다. $folderName", Toast.LENGTH_SHORT).show()
+                    }
+                }
             } else {
-                Toast.makeText(requireContext(), "Folder name cannot be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "폴더 이름을 입력해 주세요", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -85,18 +94,22 @@ class FolderListDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun setUpRecyclerView() {
-        adapter.setOnClickListener(object : OnItemClickListener {
-            override fun onItemClick(v: View, position: Int) {
-                val folder = adapter.getItem(position)
-                article?.let { roomViewModel.saveArticleToFolder(it.toArticleEntity(folder.id), folder.id) }
-            }
-        })
+        binding.folderList.adapter = adapter
         viewLifecycleOwner.lifecycleScope.launch {
             roomViewModel.folders.collect {
                 binding.folderList.layoutManager = LinearLayoutManager(requireContext())
                 adapter.setList(it)
             }
         }
+        adapter.setOnClickListener(object : OnItemClickListener {
+            override fun onItemClick(v: View, position: Int) {
+                val folder = adapter.getItem(position)
+                Log.d("clicked", "onItemClick: ${folder.name}")
+                article?.let {
+                    roomViewModel.saveArticleToFolder(article!!.toArticleEntity(folder.id),folder.id)
+                }
+            }
+        })
         binding.folderList.addItemDecoration(ItemSpacingDecoration(10))
     }
 

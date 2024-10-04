@@ -21,11 +21,14 @@ interface NewsDao{
 @Dao
 interface FolderDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(folder: FolderEntity): Long
+    suspend fun insert(folder: FolderEntity): Unit
 
     @Delete
     suspend fun delete(folder: FolderEntity)
 
     @Query("SELECT * FROM FolderEntity")
     fun getAllFolders(): Flow<List<FolderEntity>>
+
+    @Query("SELECT COUNT(*) FROM FolderEntity WHERE name = :folderName")
+    suspend fun isFolderNameExists(folderName: String): Int
 }

@@ -12,8 +12,14 @@ import kotlinx.coroutines.channels.ticker
 class FolderRecyclerAdapter() :
     RecyclerView.Adapter<FolderRecyclerAdapter.ViewHolder>() {
     private lateinit var folderList:List<FolderEntity>
+    private lateinit var clickListener: OnItemClickListener
     inner class ViewHolder(binding: FragmentFolderDialogItemBinding) : RecyclerView.ViewHolder(binding.root){
         val title = binding.folderName
+        init {
+            binding.root.setOnClickListener {
+                clickListener.onItemClick(binding.root,layoutPosition)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,6 +45,6 @@ class FolderRecyclerAdapter() :
     }
 
     fun setOnClickListener(onItemClickListener: OnItemClickListener) {
-
+        clickListener = onItemClickListener
     }
 }
