@@ -12,7 +12,7 @@ interface NewsDao{
     @Query("SELECT * FROM ArticleEntity")
     fun getAllURls():List<ArticleEntity>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(article: ArticleEntity)
+    suspend fun insert(article: ArticleEntity):Long
 
     @Delete
     fun delete(article: ArticleEntity)

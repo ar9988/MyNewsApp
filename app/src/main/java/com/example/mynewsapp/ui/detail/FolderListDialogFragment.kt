@@ -106,7 +106,14 @@ class FolderListDialogFragment : BottomSheetDialogFragment() {
                 val folder = adapter.getItem(position)
                 Log.d("clicked", "onItemClick: ${folder.name}")
                 article?.let {
-                    roomViewModel.saveArticleToFolder(article!!.toArticleEntity(folder.id),folder.id)
+                    roomViewModel.saveArticleToFolder(it.toArticleEntity(folder.id)) { result ->
+                        if (result) {
+                            Toast.makeText(requireContext(), "주소가 저장되었습니다", Toast.LENGTH_SHORT).show()
+                            dismiss()
+                        } else {
+                            Toast.makeText(requireContext(), "저장 실패 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
         })

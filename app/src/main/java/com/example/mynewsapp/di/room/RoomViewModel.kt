@@ -35,10 +35,16 @@ class RoomViewModel @Inject constructor(
         }
     }
 
-    fun saveArticleToFolder(article: ArticleEntity, folderId: Int) {
+    fun saveArticleToFolder(article: ArticleEntity, onResult: (Boolean) -> Unit) {
         Log.d(TAG, "saveArticleToFolder: ")
         viewModelScope.launch {
-            repository.insertArticle(folderId,article)
+            try {
+                repository.insertArticle(article)
+                onResult(true)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error saving article: ", e)
+                onResult(false)
+            }
         }
     }
 }

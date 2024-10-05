@@ -18,8 +18,9 @@ class RoomRepository @Inject constructor(
     private val _folders = MutableStateFlow<List<FolderEntity>>(emptyList())
     val folders: StateFlow<List<FolderEntity>> = _folders
 
-    fun insertArticle(folderId:Int, articleEntity: ArticleEntity){
-
+    suspend fun insertArticle(articleEntity: ArticleEntity) : Boolean{
+        val result = newsDao.insert(articleEntity)
+        return result != -1L
     }
 
     suspend fun isFolderNameExists(folderName: String): Boolean {
