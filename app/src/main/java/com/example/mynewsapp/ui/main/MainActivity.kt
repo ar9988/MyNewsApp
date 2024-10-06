@@ -6,11 +6,11 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.mynewsapp.R
 import com.example.mynewsapp.databinding.ActivityMainBinding
-import com.example.mynewsapp.ui.detail.ArchiveFragment
-import com.example.mynewsapp.ui.detail.CategoryFragment
-import com.example.mynewsapp.ui.detail.HomeFragment
-import com.example.mynewsapp.ui.detail.SearchFragment
-import com.example.mynewsapp.ui.detail.SettingsFragment
+import com.example.mynewsapp.ui.fragment.ArchiveFragment
+import com.example.mynewsapp.ui.fragment.CategoryFragment
+import com.example.mynewsapp.ui.fragment.HomeFragment
+import com.example.mynewsapp.ui.fragment.SearchFragment
+import com.example.mynewsapp.ui.fragment.SettingsFragment
 import com.example.mynewsapp.di.datastore.DataStoreViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
