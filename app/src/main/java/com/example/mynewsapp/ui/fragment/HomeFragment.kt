@@ -64,7 +64,6 @@ class HomeFragment : Fragment() {
         })
         adapter.setOnCheckBoxListener(object : OnCheckBoxClickListener {
             override fun onCheckBoxClick(article: Article, isChecked: Boolean) {
-                roomViewModel
                 if(isChecked){
                     val bottomSheetDialogFragment = FolderListDialogFragment.newInstance(article)
                     bottomSheetDialogFragment.show(parentFragmentManager, "folderListDialog")

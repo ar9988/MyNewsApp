@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mynewsapp.datasource.db.ArticleEntity
 import com.example.mynewsapp.datasource.db.FolderEntity
-import com.example.mynewsapp.datasource.network.dto.Article
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,10 +18,6 @@ class RoomViewModel @Inject constructor(
 ):ViewModel(){
     val folders: StateFlow<List<FolderEntity>> = repository.folders
 
-    suspend fun getAllFolders(): List<FolderEntity> {
-        return repository.getAllFolders()
-    }
-
     fun createFolder(folderName: String, onResult: (Boolean) -> Unit) {
         viewModelScope.launch {
             val result = if (!repository.isFolderNameExists(folderName)) {
@@ -32,6 +27,13 @@ class RoomViewModel @Inject constructor(
                 false
             }
             onResult(result)
+        }
+    }
+
+    fun getArticleByFolderId(folderId:Int, setList: (list:List<ArticleEntity>) -> Unit){
+        viewModelScope.launch {
+            val resultList = repository.getArticleByFolderId(folderId)
+            setList(resultList)
         }
     }
 

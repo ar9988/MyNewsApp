@@ -27,13 +27,13 @@ class RoomRepository @Inject constructor(
         return folderDao.isFolderNameExists(folderName) > 0
     }
 
-    fun getAllFolders(): List<FolderEntity> {
-        return folders.value
-    }
-
     suspend fun createFolder(folderName: String): Unit {
         val folder = FolderEntity(name = folderName)
         folderDao.insert(folder)
+    }
+
+    suspend fun getArticleByFolderId(folderId: Int): List<ArticleEntity> {
+        return newsDao.getArticleByFolderId(folderId)
     }
 
 

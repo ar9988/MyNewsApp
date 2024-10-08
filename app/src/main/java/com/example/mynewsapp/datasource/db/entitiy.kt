@@ -5,6 +5,9 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.example.mynewsapp.datasource.network.dto.Article
+import com.example.mynewsapp.datasource.network.dto.Source
+
 @Entity(
     foreignKeys = [ForeignKey(
         entity = FolderEntity::class,
@@ -35,3 +38,17 @@ data class FolderEntity(
     val id: Int = 0,
     val name: String
 )
+
+fun ArticleEntity.toArticle(source: Source? = null, isFavorite: Boolean = false): Article {
+    return Article(
+        author = this.author,
+        content = this.content,
+        description = this.description,
+        publishedAt = this.publishedAt ?: "", // 기본값으로 빈 문자열을 사용
+        source = source,
+        title = this.title ?: "", // 기본값으로 빈 문자열을 사용
+        url = this.url,
+        urlToImage = this.urlToImage,
+        isFavorite = isFavorite
+    )
+}

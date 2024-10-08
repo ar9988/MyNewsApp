@@ -10,12 +10,15 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface NewsDao{
     @Query("SELECT * FROM ArticleEntity")
-    fun getAllURls():List<ArticleEntity>
+    suspend fun getAllURls():List<ArticleEntity>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(article: ArticleEntity):Long
 
     @Delete
-    fun delete(article: ArticleEntity)
+    suspend fun delete(article: ArticleEntity)
+
+    @Query("SELECT * FROM ArticleEntity WHERE folderId = :folderId")
+    suspend fun getArticleByFolderId(folderId: Int): List<ArticleEntity>
 }
 
 @Dao
