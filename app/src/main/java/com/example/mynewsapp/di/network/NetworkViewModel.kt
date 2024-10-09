@@ -2,7 +2,6 @@ package com.example.mynewsapp.di.network
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.mynewsapp.data.NewsRepository
 import com.example.mynewsapp.datasource.network.dto.News
 import com.example.mynewsapp.datasource.network.dto.Article
 import com.example.mynewsapp.di.room.RoomRepository
@@ -37,25 +36,16 @@ class NetworkViewModel @Inject constructor(
         _isLoading.value = true
         _error.value = null
         val call = newsRepository.getHeadlines(category, country, page)
-
-        // 요청 정보 로깅
-        Log.d(TAG, "Sending request: ${call.request().toString()}")
-
         call.enqueue(object : Callback<News> {
             override fun onResponse(call: Call<News>, response: Response<News>) {
                 if (response.isSuccessful) {
-                    Log.d(TAG, "getHeadlines successful. Response code: ${response.code()}")
                     val news = response.body()
-                    Log.d(TAG, "Received ${news?.articles?.size ?: 0} articles")
-                    _headlines.value = news?.articles?.filter { it.title != "[Removed]" } ?: emptyList()
+                    val articles = news?.articles?.filter { it.title != "[Removed]" } ?: emptyList()
+                    _headlines.value = articles.map { article ->
+                        val isSaved = roomRepository.articles.value.any { it.url == article.url }
+                        article.copy(isFavorite = isSaved)
+                    } //반영되는지 확ㅇ인
                 } else {
-                    Log.e(TAG, "getHeadlines failed. Response code: ${response.code()}")
-                    Log.e(TAG, "Error body: ${response.errorBody()?.string()}")
-
-                    // 응답 정보 로깅
-                    Log.e(TAG, "Response headers: ${response.headers()}")
-
-                    // 더 자세한 오류 정보 추출
                     val errorBody = response.errorBody()?.string()
                     val errorMessage = when {
                         errorBody?.contains("rate limit") == true -> "Rate limit exceeded"
@@ -68,8 +58,6 @@ class NetworkViewModel @Inject constructor(
             }
 
             override fun onFailure(call: Call<News>, t: Throwable) {
-                Log.e(TAG, "getHeadlines network request failed", t)
-                Log.e(TAG, "Stacktrace: ", t)
                 _error.value = "Network error: ${t.message}"
                 _isLoading.value = false
             }

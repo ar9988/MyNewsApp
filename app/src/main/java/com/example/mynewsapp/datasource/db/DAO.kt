@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface NewsDao{
     @Query("SELECT * FROM ArticleEntity")
-    suspend fun getAllURls():List<ArticleEntity>
+    fun getAllArticles():Flow<List<ArticleEntity>>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(article: ArticleEntity):Long
 

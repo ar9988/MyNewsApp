@@ -16,8 +16,9 @@ class RoomRepository @Inject constructor(
     private val folderDao: FolderDao
 ){
     private val _folders = MutableStateFlow<List<FolderEntity>>(emptyList())
+    private val _articles = MutableStateFlow<List<ArticleEntity>>(emptyList())
     val folders: StateFlow<List<FolderEntity>> = _folders
-
+    val articles: StateFlow<List<ArticleEntity>> = _articles
     suspend fun insertArticle(articleEntity: ArticleEntity) : Boolean{
         val result = newsDao.insert(articleEntity)
         return result != -1L
@@ -41,6 +42,9 @@ class RoomRepository @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             folderDao.getAllFolders().collect {
                 _folders.value = it
+            }
+            newsDao.getAllArticles().collect{
+                _articles.value = it
             }
         }
     }

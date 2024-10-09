@@ -1,17 +1,12 @@
-package com.example.mynewsapp.data
+package com.example.mynewsapp.di.network
 
-import android.util.Log
-import com.example.mynewsapp.datasource.db.NewsDao
 import com.example.mynewsapp.datasource.network.NewsInterface
-import com.example.mynewsapp.datasource.network.dto.Article
 import com.example.mynewsapp.datasource.network.dto.News
-import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(
     private val newsInterface: NewsInterface,
-    private val newsDao: NewsDao
 ) {
     fun getHeadlines(category: String,country: String, page: Int): Call<News> {
         return newsInterface.getHeadLines(category,country,page)

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -50,59 +51,73 @@ class ArchiveFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupBackPressCallback()
+        setupRecyclerAdapters()
+    }
 
-        binding.folderRecycler.adapter = folderAdapter
-        viewLifecycleOwner.lifecycleScope.launch {
-            roomViewModel.folders.collect {
-                binding.folderRecycler.layoutManager = LinearLayoutManager(requireContext())
-                folderAdapter.setList(it)
-            }
-        }
-        newsAdapter.setOnClickListener(object: OnItemClickListener {
-                override fun onItemClick(v: View, position: Int) {
-                    Log.d("item Clicked", "clicked: ${newsAdapter.getItems()[position].url}")
-                    val url = newsAdapter.getItems()[position].url
-                    val intent = Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse(url)
-                    }
-                    startActivity(intent)
-                }
-        })
-        newsAdapter.setOnCheckBoxListener(object : OnCheckBoxClickListener {
-            override fun onCheckBoxClick(article: Article, isChecked: Boolean) {
-                if(isChecked){
-                    Log.d("Checked", article.title)
-                }else{
-                    Log.d("unChecked", article.title)
-                }
-            }
-        })
-        folderAdapter.setOnClickListener(object : OnItemClickListener {
-            override fun onItemClick(v: View, position: Int) {
-                val folder = folderAdapter.getItem(position)
-                roomViewModel.getArticleByFolderId(folder.id) {
-                    binding.folderRecycler.layoutManager = LinearLayoutManager(requireContext())
-                    val articles: MutableList<Article> = mutableListOf()
-                    it.forEach { articleEntity ->
-                        articles.add(articleEntity.toArticle(Source(articleEntity.sourceId, articleEntity.sourceName), true))
-                    }
-                    newsAdapter.setList(articles)
-                    binding.folderRecycler.adapter = newsAdapter
-                    isNewsAdapterVisible = true
-                }
-            }
-        })
-
-        binding.folderRecycler.addItemDecoration(ItemSpacingDecoration(10))
-
+    private fun setupBackPressCallback() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             if (isNewsAdapterVisible) {
                 binding.folderRecycler.adapter = folderAdapter
                 isNewsAdapterVisible = false
             } else {
                 isEnabled = false
-                requireActivity().onBackPressed()
+                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
+    }
+
+    private fun setupRecyclerAdapters() {
+        binding.folderRecycler.adapter = folderAdapter
+        binding.folderRecycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.folderRecycler.addItemDecoration(ItemSpacingDecoration(10))
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            roomViewModel.folders.collect { folders ->
+                Log.d("ArchiveFragment", "Collected Folders: $folders")
+                if (folders.isNotEmpty()) {
+                    folderAdapter.setList(folders)
+                    folderAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+
+        newsAdapter.setOnClickListener(object : OnItemClickListener {
+            override fun onItemClick(v: View, position: Int) {
+                Log.d("item Clicked", "clicked: ${newsAdapter.getItems()[position].url}")
+                val url = newsAdapter.getItems()[position].url
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(url)
+                }
+                startActivity(intent)
+            }
+        })
+        newsAdapter.setOnCheckBoxListener(object : OnCheckBoxClickListener {
+            override fun onCheckBoxClick(article: Article, isChecked: Boolean) {
+                if (isChecked) {
+                    Log.d("Checked", article.title)
+                } else {
+                    Log.d("unChecked", article.title)
+                }
+            }
+        })
+
+        folderAdapter.setOnClickListener(object : OnItemClickListener {
+            override fun onItemClick(v: View, position: Int) {
+                val folder = folderAdapter.getItem(position)
+                roomViewModel.getArticleByFolderId(folder.id) { articles ->
+                    binding.folderRecycler.layoutManager = LinearLayoutManager(requireContext())
+                    val articleList: MutableList<Article> = mutableListOf()
+                    articles.forEach { articleEntity ->
+                        articleList.add(
+                            articleEntity.toArticle(Source(articleEntity.sourceId, articleEntity.sourceName), true)
+                        )
+                    }
+                    newsAdapter.setList(articleList)
+                    binding.folderRecycler.adapter = newsAdapter
+                    isNewsAdapterVisible = true
+                }
+            }
+        })
     }
 }

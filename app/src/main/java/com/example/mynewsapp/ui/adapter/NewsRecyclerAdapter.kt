@@ -79,7 +79,7 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>
         holder.checkBox.setOnCheckedChangeListener{_,isChecked ->
             checkBoxListener.onCheckBoxClick(items[position],isChecked)
         }
-
+        holder.checkBox.isChecked = items[position].isFavorite
     }
 
 
@@ -89,6 +89,7 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>
 
     fun setList(articles: List<Article>) {
         items = articles
+        notifyDataSetChanged()
     }
 
 }

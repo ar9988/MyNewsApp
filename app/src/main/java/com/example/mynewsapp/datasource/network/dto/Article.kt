@@ -22,5 +22,5 @@ data class Article(
     @SerializedName("urlToImage")
     val urlToImage: String?,
 
-    val isFavorite: Boolean
+    var isFavorite: Boolean
 )

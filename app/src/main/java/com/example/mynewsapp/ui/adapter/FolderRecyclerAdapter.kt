@@ -11,7 +11,7 @@ import kotlinx.coroutines.channels.ticker
 
 class FolderRecyclerAdapter() :
     RecyclerView.Adapter<FolderRecyclerAdapter.ViewHolder>() {
-    private lateinit var folderList:List<FolderEntity>
+    private var folderList: List<FolderEntity> = emptyList()
     private lateinit var clickListener: OnItemClickListener
     inner class ViewHolder(binding: FragmentFolderDialogItemBinding) : RecyclerView.ViewHolder(binding.root){
         val title = binding.folderName
