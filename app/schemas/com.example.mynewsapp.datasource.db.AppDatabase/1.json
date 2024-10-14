@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "aed218a04aa61db27de40ae363e12de4",
+    "identityHash": "922ce70f78ec4776dd4cb5bd6fb9c82d",
     "entities": [
       {
         "tableName": "ArticleEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `author` TEXT NOT NULL, `content` TEXT NOT NULL, `url` TEXT NOT NULL, `sourceId` TEXT NOT NULL, `sourceName` TEXT NOT NULL, `urlToImage` TEXT NOT NULL, `folderId` INTEGER NOT NULL, `title` TEXT, `description` TEXT, `publishedAt` TEXT, FOREIGN KEY(`folderId`) REFERENCES `FolderEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `author` TEXT NOT NULL, `content` TEXT NOT NULL, `url` TEXT NOT NULL, `sourceId` TEXT NOT NULL, `sourceName` TEXT NOT NULL, `urlToImage` TEXT NOT NULL, `folderId` INTEGER NOT NULL, `title` TEXT, `description` TEXT, `publishedAt` TEXT, `isFavorite` INTEGER NOT NULL, FOREIGN KEY(`folderId`) REFERENCES `FolderEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -73,6 +73,12 @@
             "columnName": "publishedAt",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "isFavorite",
+            "columnName": "isFavorite",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -136,7 +142,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aed218a04aa61db27de40ae363e12de4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '922ce70f78ec4776dd4cb5bd6fb9c82d')"
     ]
   }
 }

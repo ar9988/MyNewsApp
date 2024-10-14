@@ -17,7 +17,7 @@ import com.example.mynewsapp.databinding.DialogCreateFolderBinding
 import com.example.mynewsapp.datasource.network.dto.Article
 import com.example.mynewsapp.di.room.RoomViewModel
 import com.example.mynewsapp.ui.adapter.FolderRecyclerAdapter
-import com.example.mynewsapp.ui.adapter.OnItemClickListener
+import com.example.mynewsapp.ui.util.OnItemClickListener
 import com.example.mynewsapp.ui.util.ItemSpacingDecoration
 import com.example.mynewsapp.ui.util.ParcelableArticle
 import com.example.mynewsapp.ui.util.toParcelableArticle
@@ -33,6 +33,7 @@ class FolderListDialogFragment : BottomSheetDialogFragment() {
     private val adapter = FolderRecyclerAdapter()
     private val binding get() = _binding!!
     private var article: ParcelableArticle? = null
+    private lateinit var onArticleSavedListener: (ParcelableArticle) -> Unit
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -109,6 +110,7 @@ class FolderListDialogFragment : BottomSheetDialogFragment() {
                     roomViewModel.saveArticleToFolder(it.toArticleEntity(folder.id)) { result ->
                         if (result) {
                             Toast.makeText(requireContext(), "주소가 저장되었습니다", Toast.LENGTH_SHORT).show()
+                            onArticleSavedListener.invoke(it)
                             dismiss()
                         } else {
                             Toast.makeText(requireContext(), "저장 실패 다시 시도해주세요", Toast.LENGTH_SHORT).show()
@@ -134,5 +136,8 @@ class FolderListDialogFragment : BottomSheetDialogFragment() {
                 }
             }
         }
+    }
+    fun setOnArticleSavedListener(listener: (ParcelableArticle) -> Unit) {
+        this.onArticleSavedListener = listener
     }
 }

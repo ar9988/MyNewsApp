@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,8 +19,8 @@ import com.example.mynewsapp.datasource.network.dto.Source
 import com.example.mynewsapp.di.room.RoomViewModel
 import com.example.mynewsapp.ui.adapter.FolderRecyclerAdapter
 import com.example.mynewsapp.ui.adapter.NewsRecyclerAdapter
-import com.example.mynewsapp.ui.adapter.OnCheckBoxClickListener
-import com.example.mynewsapp.ui.adapter.OnItemClickListener
+import com.example.mynewsapp.ui.util.OnCheckBoxClickListener
+import com.example.mynewsapp.ui.util.OnItemClickListener
 import com.example.mynewsapp.ui.util.ItemSpacingDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -110,7 +109,7 @@ class ArchiveFragment : Fragment() {
                     val articleList: MutableList<Article> = mutableListOf()
                     articles.forEach { articleEntity ->
                         articleList.add(
-                            articleEntity.toArticle(Source(articleEntity.sourceId, articleEntity.sourceName), true)
+                            articleEntity.toArticle(Source(articleEntity.sourceId, articleEntity.sourceName))
                         )
                     }
                     newsAdapter.setList(articleList)

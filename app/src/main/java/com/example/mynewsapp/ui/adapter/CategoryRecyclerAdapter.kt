@@ -2,11 +2,11 @@ package com.example.mynewsapp.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynewsapp.databinding.CategoryRecyclerItemBinding
 import com.example.mynewsapp.ui.model.CategoryItemModel
+import com.example.mynewsapp.ui.util.OnItemClickListener
 
 class CategoryRecyclerAdapter(private val items: List<CategoryItemModel>,private val context: Context,private val clickListener: OnItemClickListener):
     RecyclerView.Adapter<CategoryRecyclerAdapter.ViewHolder>() {

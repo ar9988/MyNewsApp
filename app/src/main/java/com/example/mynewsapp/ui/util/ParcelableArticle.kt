@@ -16,7 +16,8 @@ fun Article.toParcelableArticle(): ParcelableArticle {
         sourceName = this.source?.name, // Assuming Source has a name property
         title = this.title,
         url = this.url,
-        urlToImage = this.urlToImage ?: "default_image_url"
+        urlToImage = this.urlToImage ?: "default_image_url",
+        isFavorite = this.isFavorite
     )
 }
 
@@ -31,6 +32,7 @@ data class ParcelableArticle(
     val title: String?,
     val url: String,
     val urlToImage: String,
+    val isFavorite:Boolean
 ) : Parcelable {
     fun toArticleEntity(folderId:Int): ArticleEntity {
         return ArticleEntity(
@@ -43,7 +45,8 @@ data class ParcelableArticle(
             folderId = folderId, // 폴더 ID를 매개변수로 받음
             title = this.title,
             description = this.description,
-            publishedAt = this.publishedAt // nullable Long로 변환
+            publishedAt = this.publishedAt,
+            isFavorite = this.isFavorite
         )
     }
 }

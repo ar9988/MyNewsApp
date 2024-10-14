@@ -23,7 +23,6 @@ class NetworkViewModel @Inject constructor(
         private const val TAG = "NetworkViewModel"
     }
 
-
     private val _headlines = MutableStateFlow<List<Article>>(emptyList())
     val headlines: StateFlow<List<Article>> = _headlines.asStateFlow()
 
@@ -36,15 +35,17 @@ class NetworkViewModel @Inject constructor(
         _isLoading.value = true
         _error.value = null
         val call = newsRepository.getHeadlines(category, country, page)
+        val savedArticleUrls = roomRepository.articleUrls.value
+        Log.d("viewModel", savedArticleUrls.size.toString())
         call.enqueue(object : Callback<News> {
             override fun onResponse(call: Call<News>, response: Response<News>) {
                 if (response.isSuccessful) {
                     val news = response.body()
                     val articles = news?.articles?.filter { it.title != "[Removed]" } ?: emptyList()
                     _headlines.value = articles.map { article ->
-                        val isSaved = roomRepository.articles.value.any { it.url == article.url }
+                        val isSaved = savedArticleUrls.contains(article.url)
                         article.copy(isFavorite = isSaved)
-                    } //반영되는지 확ㅇ인
+                    }
                 } else {
                     val errorBody = response.errorBody()?.string()
                     val errorMessage = when {
@@ -75,4 +76,5 @@ class NetworkViewModel @Inject constructor(
             }
         })
     }
+
 }

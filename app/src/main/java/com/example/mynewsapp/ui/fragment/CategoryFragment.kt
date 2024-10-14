@@ -13,7 +13,7 @@ import com.example.mynewsapp.databinding.CategorySelectBinding
 import com.example.mynewsapp.ui.adapter.CategoryRecyclerAdapter
 import com.example.mynewsapp.ui.model.CategoryItemModel
 import com.example.mynewsapp.di.datastore.DataStoreViewModel
-import com.example.mynewsapp.ui.adapter.OnItemClickListener
+import com.example.mynewsapp.ui.util.OnItemClickListener
 import com.example.mynewsapp.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect

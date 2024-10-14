@@ -29,7 +29,8 @@ data class ArticleEntity(
     val folderId: Int,
     val title: String? = null,
     val description: String? = null,
-    val publishedAt: String? = null
+    val publishedAt: String? = null,
+    val isFavorite: Boolean
 )
 
 @Entity
@@ -39,7 +40,7 @@ data class FolderEntity(
     val name: String
 )
 
-fun ArticleEntity.toArticle(source: Source? = null, isFavorite: Boolean = false): Article {
+fun ArticleEntity.toArticle(source: Source? = null): Article {
     return Article(
         author = this.author,
         content = this.content,
@@ -49,6 +50,6 @@ fun ArticleEntity.toArticle(source: Source? = null, isFavorite: Boolean = false)
         title = this.title ?: "", // 기본값으로 빈 문자열을 사용
         url = this.url,
         urlToImage = this.urlToImage,
-        isFavorite = isFavorite
+        isFavorite = this.isFavorite
     )
 }

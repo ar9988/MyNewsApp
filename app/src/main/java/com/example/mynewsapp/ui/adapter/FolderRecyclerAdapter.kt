@@ -1,13 +1,11 @@
 package com.example.mynewsapp.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynewsapp.databinding.FragmentFolderDialogItemBinding
 import com.example.mynewsapp.datasource.db.FolderEntity
-import com.example.mynewsapp.datasource.network.dto.Article
-import kotlinx.coroutines.channels.ticker
+import com.example.mynewsapp.ui.util.OnItemClickListener
 
 class FolderRecyclerAdapter() :
     RecyclerView.Adapter<FolderRecyclerAdapter.ViewHolder>() {

@@ -6,13 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynewsapp.databinding.NewsRecyclerItemBinding
 import com.example.mynewsapp.datasource.network.dto.Article
+import com.example.mynewsapp.ui.util.OnCheckBoxClickListener
+import com.example.mynewsapp.ui.util.OnItemClickListener
 
-class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>(){
-    private lateinit var items:List<Article>
+class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>() {
+    private lateinit var items: List<Article>
     private lateinit var clickListener: OnItemClickListener
     private lateinit var checkBoxListener: OnCheckBoxClickListener
 
-    inner class ViewHolder( binding: NewsRecyclerItemBinding):RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(binding: NewsRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val title = binding.titleTv
         val description = binding.descriptionTv
         val source = binding.sourceTv
@@ -20,24 +22,37 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>
         val publishedAt = binding.publishedAtTv
         val line = binding.line2
         val checkBox = binding.favoriteCheckbox
+
+        private var onCheckedChangeListener: ((Boolean) -> Unit)? = null
+
+        init {
+            checkBox.setOnCheckedChangeListener { _, isChecked ->
+                onCheckedChangeListener?.invoke(isChecked)
+            }
+        }
+
+        fun setChecked(checked: Boolean, listener: ((Boolean) -> Unit)?) {
+            onCheckedChangeListener = null
+            checkBox.isChecked = checked
+            onCheckedChangeListener = listener
+        }
     }
+
     fun setOnClickListener(clickListener: OnItemClickListener) {
         this.clickListener = clickListener
     }
-    fun setOnCheckBoxListener(checkBoxClickListener: OnCheckBoxClickListener){
+
+    fun setOnCheckBoxListener(checkBoxClickListener: OnCheckBoxClickListener) {
         this.checkBoxListener = checkBoxClickListener
     }
 
-    fun getItems() : List<Article>{
+    fun getItems(): List<Article> {
         return items
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): NewsRecyclerAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = NewsRecyclerItemBinding.inflate(layoutInflater,parent,false)
+        val binding = NewsRecyclerItemBinding.inflate(layoutInflater, parent, false)
         return ViewHolder(binding)
     }
 
@@ -72,16 +87,14 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>
 
         holder.publishedAt.text = item.publishedAt
 
-        holder.itemView.setOnClickListener{
-            clickListener.onItemClick(holder.itemView,position)
+        holder.itemView.setOnClickListener {
+            clickListener.onItemClick(holder.itemView, position)
         }
 
-        holder.checkBox.setOnCheckedChangeListener{_,isChecked ->
-            checkBoxListener.onCheckBoxClick(items[position],isChecked)
+        holder.setChecked(items[position].isFavorite) { isChecked ->
+            checkBoxListener.onCheckBoxClick(items[position], isChecked)
         }
-        holder.checkBox.isChecked = items[position].isFavorite
     }
-
 
     override fun getItemCount(): Int {
         return items.size
@@ -91,5 +104,4 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>
         items = articles
         notifyDataSetChanged()
     }
-
 }

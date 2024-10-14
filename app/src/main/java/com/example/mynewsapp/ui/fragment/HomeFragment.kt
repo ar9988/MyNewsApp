@@ -21,8 +21,8 @@ import com.example.mynewsapp.datasource.network.dto.Article
 import com.example.mynewsapp.di.datastore.DataStoreViewModel
 import com.example.mynewsapp.di.room.RoomViewModel
 import com.example.mynewsapp.ui.adapter.NewsRecyclerAdapter
-import com.example.mynewsapp.ui.adapter.OnCheckBoxClickListener
-import com.example.mynewsapp.ui.adapter.OnItemClickListener
+import com.example.mynewsapp.ui.util.OnCheckBoxClickListener
+import com.example.mynewsapp.ui.util.OnItemClickListener
 import com.example.mynewsapp.ui.util.ItemSpacingDecoration
 
 @AndroidEntryPoint
@@ -66,6 +66,10 @@ class HomeFragment : Fragment() {
             override fun onCheckBoxClick(article: Article, isChecked: Boolean) {
                 if(isChecked){
                     val bottomSheetDialogFragment = FolderListDialogFragment.newInstance(article)
+                    bottomSheetDialogFragment.setOnArticleSavedListener { savedArticle ->
+                        // 해당 기사의 isFavorite을 true로 변경
+                        updateArticleFavoriteStatus(savedArticle.url, true)
+                    }
                     bottomSheetDialogFragment.show(parentFragmentManager, "folderListDialog")
                     Log.d("Checked", article.title)
                 }else{
@@ -75,6 +79,17 @@ class HomeFragment : Fragment() {
         })
         binding.newsRecyclerView.adapter = adapter
         binding.newsRecyclerView.addItemDecoration(ItemSpacingDecoration(16))
+    }
+
+    private fun updateArticleFavoriteStatus(articleUrl: String, isFavorite: Boolean) {
+        val updatedList = adapter.getItems().map { article ->
+            if (article.url == articleUrl) {
+                article.copy(isFavorite = isFavorite)
+            } else {
+                article
+            }
+        }
+        adapter.setList(updatedList)
     }
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {

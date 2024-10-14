@@ -1,4 +1,4 @@
-package com.example.mynewsapp.ui.adapter
+package com.example.mynewsapp.ui.util
 
 import com.example.mynewsapp.datasource.network.dto.Article
 
