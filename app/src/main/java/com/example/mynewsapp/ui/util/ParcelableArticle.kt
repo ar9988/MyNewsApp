@@ -46,7 +46,7 @@ data class ParcelableArticle(
             title = this.title,
             description = this.description,
             publishedAt = this.publishedAt,
-            isFavorite = this.isFavorite
+            isFavorite = true
         )
     }
 }

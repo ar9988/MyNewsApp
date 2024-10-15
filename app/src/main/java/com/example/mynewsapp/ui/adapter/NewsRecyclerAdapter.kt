@@ -104,4 +104,11 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.ViewHolder>
         items = articles
         notifyDataSetChanged()
     }
+
+    fun removeItem(position: Int) {
+        val updatedList = items.toMutableList()
+        updatedList.removeAt(position)
+        items = updatedList
+        notifyItemRemoved(position)
+    }
 }

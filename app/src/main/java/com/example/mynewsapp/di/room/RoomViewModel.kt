@@ -49,4 +49,15 @@ class RoomViewModel @Inject constructor(
             }
         }
     }
+    fun deleteArticle(url: String, onResult: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            try {
+                repository.deleteArticle(url)
+                onResult(true)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error saving article: ", e)
+                onResult(false)
+            }
+        }
+    }
 }

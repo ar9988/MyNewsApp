@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -96,7 +97,17 @@ class ArchiveFragment : Fragment() {
                 if (isChecked) {
                     Log.d("Checked", article.title)
                 } else {
-                    Log.d("unChecked", article.title)
+                    roomViewModel.deleteArticle(article.url){ success ->
+                        if (success) {
+                            Toast.makeText(requireContext(), "즐겨찾기가 삭제되었습니다", Toast.LENGTH_SHORT).show()
+                            val position = newsAdapter.getItems().indexOf(article)
+                            if (position != -1) {
+                                newsAdapter.removeItem(position)
+                            }
+                        } else {
+                            Toast.makeText(requireContext(), "즐겨찾기 삭제 실패. 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
         })

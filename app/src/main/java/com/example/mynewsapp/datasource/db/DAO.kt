@@ -14,8 +14,8 @@ interface NewsDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(article: ArticleEntity):Long
 
-    @Delete
-    suspend fun delete(article: ArticleEntity)
+    @Query("DELETE FROM ArticleEntity WHERE url = :url")
+    suspend fun delete(url: String)
 
     @Query("SELECT * FROM ArticleEntity WHERE folderId = :folderId")
     suspend fun getArticleByFolderId(folderId: Int): List<ArticleEntity>

@@ -67,12 +67,19 @@ class HomeFragment : Fragment() {
                 if(isChecked){
                     val bottomSheetDialogFragment = FolderListDialogFragment.newInstance(article)
                     bottomSheetDialogFragment.setOnArticleSavedListener { savedArticle ->
-                        // 해당 기사의 isFavorite을 true로 변경
                         updateArticleFavoriteStatus(savedArticle.url, true)
                     }
                     bottomSheetDialogFragment.show(parentFragmentManager, "folderListDialog")
                     Log.d("Checked", article.title)
                 }else{
+                    roomViewModel.deleteArticle(article.url){ success ->
+                        if (success) {
+                            Toast.makeText(requireContext(), "즐겨찾기가 삭제되었습니다", Toast.LENGTH_SHORT).show()
+                            updateArticleFavoriteStatus(article.url, false)  // 상태 업데이트
+                        } else {
+                            Toast.makeText(requireContext(), "즐겨찾기 삭제 실패. 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                     Log.d("unChecked", article.title)
                 }
             }

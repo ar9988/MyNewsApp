@@ -39,7 +39,9 @@ class RoomRepository @Inject constructor(
         return newsDao.getArticleByFolderId(folderId)
     }
 
-
+    suspend fun deleteArticle(url:String){
+        return newsDao.delete(url)
+    }
     init {
         CoroutineScope(Dispatchers.IO).launch {
             folderDao.getAllFolders().collect { folders ->
