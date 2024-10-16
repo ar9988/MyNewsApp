@@ -23,8 +23,8 @@ class NetworkViewModel @Inject constructor(
         private const val TAG = "NetworkViewModel"
     }
 
-    private val _headlines = MutableStateFlow<List<Article>>(emptyList())
-    val headlines: StateFlow<List<Article>> = _headlines.asStateFlow()
+    private val _articles = MutableStateFlow<List<Article>>(emptyList())
+    val articles: StateFlow<List<Article>> = _articles.asStateFlow()
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
@@ -42,7 +42,7 @@ class NetworkViewModel @Inject constructor(
                 if (response.isSuccessful) {
                     val news = response.body()
                     val articles = news?.articles?.filter { it.title != "[Removed]" } ?: emptyList()
-                    _headlines.value = articles.map { article ->
+                    _articles.value = articles.map { article ->
                         val isSaved = savedArticleUrls.contains(article.url)
                         article.copy(isFavorite = isSaved)
                     }
@@ -65,16 +65,43 @@ class NetworkViewModel @Inject constructor(
         })
     }
 
-    fun getAllNews(query: String, page: Int) {
-        newsRepository.getAllNews(query, page).enqueue(object : Callback<News> {
+    fun searchNews(query: String, page: Int) {
+        _isLoading.value = true
+        _error.value = null
+        val savedArticleUrls = roomRepository.articleUrls.value
+        val call = newsRepository.searchNews(query, page)
+
+        // 요청 URL을 로그로 출력
+        Log.d("NetworkViewModel", "Request URL: ${call.request()}")
+
+        call.enqueue(object : Callback<News> {
             override fun onResponse(call: Call<News>, response: Response<News>) {
-                // 응답 처리
+                if(response.isSuccessful){
+                    val news = response.body()
+                    val articles = news?.articles?.filter { it.title != "[Removed]" } ?: emptyList()
+                    _articles.value = articles.map { article ->
+                        val isSaved = savedArticleUrls.contains(article.url)
+                        article.copy(isFavorite = isSaved)
+                    }
+                }
+                else{
+                    val errorBody = response.errorBody()?.string()
+                    val errorMessage = when {
+                        errorBody?.contains("rate limit") == true -> "Rate limit exceeded"
+                        errorBody?.contains("invalid-api-key") == true -> "Invalid API key"
+                        else -> "Unknown error: ${response.code()}"
+                    }
+                    _error.value = errorMessage
+                }
+                _isLoading.value = false
             }
 
             override fun onFailure(call: Call<News>, t: Throwable) {
-                // 오류 처리
+                _error.value = "Network error: ${t.message}"
+                _isLoading.value = false
             }
         })
     }
+
 
 }

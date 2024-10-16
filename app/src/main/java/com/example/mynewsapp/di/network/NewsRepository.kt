@@ -12,8 +12,8 @@ class NewsRepository @Inject constructor(
         return newsInterface.getHeadLines(category,country,page)
     }
 
-    fun getAllNews(query: String, page: Int): Call<News> {
-        return newsInterface.getAllNews(query,page)
+    fun searchNews(query: String, page: Int): Call<News> {
+        return newsInterface.searchNews(query,page)
     }
 
 

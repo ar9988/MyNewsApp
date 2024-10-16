@@ -18,7 +18,7 @@ interface NewsInterface{
         @Header("User-Agent") userAgent: String = "Mozilla/5.0"
     ): Call<News>
     @GET("v2/everything?apiKey=$API_KEY")
-    fun getAllNews(
+    fun searchNews(
         @Query("q") q: String,
         @Query("page") page : Int,
         @Header("User-Agent") userAgent: String = "Mozilla/5.0"

@@ -1,6 +1,7 @@
 package com.example.mynewsapp.ui.fragment
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -27,7 +28,8 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FolderListDialogFragment : BottomSheetDialogFragment() {
-
+    private var dismissListener: (() -> Unit)? = null
+    var isArticleSaved: Boolean = false
     private var _binding: FragmentFolderDialogBinding? = null
     private val roomViewModel: RoomViewModel by viewModels()
     private val adapter = FolderRecyclerAdapter()
@@ -111,6 +113,7 @@ class FolderListDialogFragment : BottomSheetDialogFragment() {
                         if (result) {
                             Toast.makeText(requireContext(), "주소가 저장되었습니다", Toast.LENGTH_SHORT).show()
                             onArticleSavedListener.invoke(it)
+                            isArticleSaved = true
                             dismiss()
                         } else {
                             Toast.makeText(requireContext(), "저장 실패 다시 시도해주세요", Toast.LENGTH_SHORT).show()
@@ -121,12 +124,18 @@ class FolderListDialogFragment : BottomSheetDialogFragment() {
         })
         binding.folderList.addItemDecoration(ItemSpacingDecoration(10))
     }
+    fun setOnDismissListener(listener: () -> Unit) {
+        dismissListener = listener
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        dismissListener?.invoke()
+    }
     companion object {
         private const val ARG_ARTICLE = "article"
         fun newInstance(article: Article): FolderListDialogFragment {
