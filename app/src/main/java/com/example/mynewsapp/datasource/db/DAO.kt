@@ -19,6 +19,9 @@ interface NewsDao{
 
     @Query("SELECT * FROM ArticleEntity WHERE folderId = :folderId")
     suspend fun getArticleByFolderId(folderId: Int): List<ArticleEntity>
+
+    @Query("SELECT folderId FROM ArticleEntity WHERE url = :url LIMIT 1")
+    suspend fun getFolderIdByUrl(url: String): Int
 }
 
 @Dao
@@ -34,4 +37,7 @@ interface FolderDao {
 
     @Query("SELECT COUNT(*) FROM FolderEntity WHERE name = :folderName")
     suspend fun isFolderNameExists(folderName: String): Int
+
+    @Query("UPDATE FolderEntity SET updatedAt = :updatedAt, articleCount = :articleCount WHERE id = :folderId")
+    suspend fun updateFolder(updatedAt: String, articleCount: Int, folderId: Int)
 }

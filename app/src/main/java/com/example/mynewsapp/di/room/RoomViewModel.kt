@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mynewsapp.datasource.db.ArticleEntity
 import com.example.mynewsapp.datasource.db.FolderEntity
+import com.example.mynewsapp.datasource.network.dto.Article
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -49,10 +50,10 @@ class RoomViewModel @Inject constructor(
             }
         }
     }
-    fun deleteArticle(url: String, onResult: (Boolean) -> Unit) {
+    fun deleteArticle(article: Article, onResult: (Boolean) -> Unit) {
         viewModelScope.launch {
             try {
-                repository.deleteArticle(url)
+                repository.deleteArticle(article)
                 onResult(true)
             } catch (e: Exception) {
                 Log.e(TAG, "Error saving article: ", e)

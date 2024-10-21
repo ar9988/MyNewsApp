@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mynewsapp.databinding.ArchiveFragmentBinding
+import com.example.mynewsapp.datasource.db.ArticleEntity
 import com.example.mynewsapp.datasource.db.toArticle
 import com.example.mynewsapp.datasource.network.dto.Article
 import com.example.mynewsapp.datasource.network.dto.Source
@@ -95,9 +96,9 @@ class ArchiveFragment : Fragment() {
         newsAdapter.setOnCheckBoxListener(object : OnCheckBoxClickListener {
             override fun onCheckBoxClick(article: Article, isChecked: Boolean) {
                 if (isChecked) {
-                    Log.d("Checked", article.title)
+                    article.title?.let { Log.d("Checked", it) }
                 } else {
-                    roomViewModel.deleteArticle(article.url){ success ->
+                    roomViewModel.deleteArticle(article){ success ->
                         if (success) {
                             Toast.makeText(requireContext(), "즐겨찾기가 삭제되었습니다", Toast.LENGTH_SHORT).show()
                             val position = newsAdapter.getItems().indexOf(article)

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "922ce70f78ec4776dd4cb5bd6fb9c82d",
+    "identityHash": "520775a488efb52297dcbb08be81fe6c",
     "entities": [
       {
         "tableName": "ArticleEntity",
@@ -114,7 +114,7 @@
       },
       {
         "tableName": "FolderEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `createdAt` TEXT NOT NULL, `updatedAt` TEXT NOT NULL, `articleCount` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -126,6 +126,24 @@
             "fieldPath": "name",
             "columnName": "name",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "articleCount",
+            "columnName": "articleCount",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -142,7 +160,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '922ce70f78ec4776dd4cb5bd6fb9c82d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '520775a488efb52297dcbb08be81fe6c')"
     ]
   }
 }

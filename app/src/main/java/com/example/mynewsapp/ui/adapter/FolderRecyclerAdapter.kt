@@ -6,13 +6,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mynewsapp.databinding.FragmentFolderDialogItemBinding
 import com.example.mynewsapp.datasource.db.FolderEntity
 import com.example.mynewsapp.ui.util.OnItemClickListener
+import java.util.Locale
 
-class FolderRecyclerAdapter() :
+class FolderRecyclerAdapter :
     RecyclerView.Adapter<FolderRecyclerAdapter.ViewHolder>() {
     private var folderList: List<FolderEntity> = emptyList()
     private lateinit var clickListener: OnItemClickListener
     inner class ViewHolder(binding: FragmentFolderDialogItemBinding) : RecyclerView.ViewHolder(binding.root){
         val title = binding.folderName
+        val created = binding.createdDate
+        val count = binding.articleCnt
+        val updated = binding.updatedDate
         init {
             binding.root.setOnClickListener {
                 clickListener.onItemClick(binding.root,layoutPosition)
@@ -31,8 +35,13 @@ class FolderRecyclerAdapter() :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.title.text = folderList[position].name
+        val folder = folderList[position]
+        holder.title.text = folder.name
+        holder.created.text = String.format(Locale.getDefault(), "생성일 : %s", folder.createdAt)
+        holder.updated.text = String.format(Locale.getDefault(), "변경일 : %s", folder.updatedAt)
+        holder.count.text = String.format(Locale.getDefault(), "저장 수 : %d", folder.articleCount)
     }
+
 
     fun setList(it: List<FolderEntity>) {
         folderList = it

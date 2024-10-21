@@ -37,7 +37,10 @@ data class ArticleEntity(
 data class FolderEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val name: String
+    val name: String,
+    val createdAt: String,
+    val updatedAt:String,
+    val articleCount:Int
 )
 
 fun ArticleEntity.toArticle(source: Source? = null): Article {

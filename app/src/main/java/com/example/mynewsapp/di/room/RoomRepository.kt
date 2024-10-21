@@ -5,6 +5,7 @@ import com.example.mynewsapp.datasource.db.ArticleEntity
 import com.example.mynewsapp.datasource.db.FolderEntity
 import com.example.mynewsapp.datasource.db.FolderDao
 import com.example.mynewsapp.datasource.db.NewsDao
+import com.example.mynewsapp.datasource.network.dto.Article
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,15 +24,23 @@ class RoomRepository @Inject constructor(
     val articleUrls: StateFlow<Set<String>> = _articleUrls
     suspend fun insertArticle(articleEntity: ArticleEntity) : Boolean{
         val result = newsDao.insert(articleEntity)
+        updateFolderArticleCountAndTime(articleEntity.folderId)
         return result != -1L
     }
 
     suspend fun isFolderNameExists(folderName: String): Boolean {
         return folderDao.isFolderNameExists(folderName) > 0
     }
+    suspend fun updateFolderArticleCountAndTime(folderId: Int) {
+        val articleCount = newsDao.getArticleByFolderId(folderId).size
+        val updatedAt = getCurrentTime()
+        folderDao.updateFolder(updatedAt, articleCount, folderId)
+    }
+
 
     suspend fun createFolder(folderName: String): Unit {
-        val folder = FolderEntity(name = folderName)
+        val currentTime = getCurrentTime()
+        val folder = FolderEntity(name = folderName, createdAt = currentTime, updatedAt = currentTime, articleCount = 0)
         folderDao.insert(folder)
     }
 
@@ -39,8 +48,13 @@ class RoomRepository @Inject constructor(
         return newsDao.getArticleByFolderId(folderId)
     }
 
-    suspend fun deleteArticle(url:String){
-        return newsDao.delete(url)
+    suspend fun deleteArticle(article: Article){
+        val folderId = newsDao.getFolderIdByUrl(article.url)
+        newsDao.delete(article.url)
+        updateFolderArticleCountAndTime(folderId)
+    }
+    private fun getCurrentTime(): String {
+        return java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
     }
     init {
         CoroutineScope(Dispatchers.IO).launch {

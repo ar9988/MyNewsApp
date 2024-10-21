@@ -58,7 +58,7 @@ abstract class BaseNewsFragment : Fragment() {
                     }
                     bottomSheetDialogFragment.show(parentFragmentManager, "folderListDialog")
                 } else {
-                    roomViewModel.deleteArticle(article.url) { success ->
+                    roomViewModel.deleteArticle(article) { success ->
                         if (success) {
                             Toast.makeText(requireContext(), "즐겨찾기가 삭제되었습니다", Toast.LENGTH_SHORT).show()
                             updateArticleFavoriteStatus(article.url, false)
