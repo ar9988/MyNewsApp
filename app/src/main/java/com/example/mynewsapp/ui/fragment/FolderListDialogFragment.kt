@@ -121,6 +121,12 @@ class FolderListDialogFragment : BottomSheetDialogFragment() {
                     }
                 }
             }
+        }, object :OnItemClickListener{
+            override fun onItemClick(v: View, position: Int) {
+                val folder = adapter.getItem(position)
+                roomViewModel.deleteFolder(folder)
+            }
+
         })
         binding.folderList.addItemDecoration(ItemSpacingDecoration(10))
     }

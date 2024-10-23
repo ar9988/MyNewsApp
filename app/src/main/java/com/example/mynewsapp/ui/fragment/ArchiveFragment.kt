@@ -129,6 +129,12 @@ class ArchiveFragment : Fragment() {
                     isNewsAdapterVisible = true
                 }
             }
+        }, object : OnItemClickListener{
+            override fun onItemClick(v: View, position: Int) {
+                val folder = folderAdapter.getItem(position)
+                roomViewModel.deleteFolder(folder)
+            }
+
         })
     }
 }

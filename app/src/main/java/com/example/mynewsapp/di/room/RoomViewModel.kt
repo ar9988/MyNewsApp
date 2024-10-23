@@ -1,6 +1,7 @@
 package com.example.mynewsapp.di.room
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mynewsapp.datasource.db.ArticleEntity
@@ -59,6 +60,12 @@ class RoomViewModel @Inject constructor(
                 Log.e(TAG, "Error saving article: ", e)
                 onResult(false)
             }
+        }
+    }
+
+    fun deleteFolder(folder: FolderEntity) {
+        viewModelScope.launch {
+            repository.deleteFolder(folder)
         }
     }
 }

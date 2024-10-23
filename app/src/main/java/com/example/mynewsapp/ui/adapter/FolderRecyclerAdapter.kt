@@ -12,6 +12,7 @@ class FolderRecyclerAdapter :
     RecyclerView.Adapter<FolderRecyclerAdapter.ViewHolder>() {
     private var folderList: List<FolderEntity> = emptyList()
     private lateinit var clickListener: OnItemClickListener
+    private lateinit var closeButtonListener: OnItemClickListener
     inner class ViewHolder(binding: FragmentFolderDialogItemBinding) : RecyclerView.ViewHolder(binding.root){
         val title = binding.folderName
         val created = binding.createdDate
@@ -20,6 +21,9 @@ class FolderRecyclerAdapter :
         init {
             binding.root.setOnClickListener {
                 clickListener.onItemClick(binding.root,layoutPosition)
+            }
+            binding.btnClose.setOnClickListener{
+                closeButtonListener.onItemClick(binding.root,layoutPosition)
             }
         }
     }
@@ -51,7 +55,8 @@ class FolderRecyclerAdapter :
         return folderList[idx]
     }
 
-    fun setOnClickListener(onItemClickListener: OnItemClickListener) {
+    fun setOnClickListener(onItemClickListener: OnItemClickListener,onCloseButtonListener: OnItemClickListener) {
         clickListener = onItemClickListener
+        closeButtonListener = onCloseButtonListener
     }
 }

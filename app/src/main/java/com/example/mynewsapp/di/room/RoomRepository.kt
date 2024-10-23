@@ -56,6 +56,11 @@ class RoomRepository @Inject constructor(
     private fun getCurrentTime(): String {
         return java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
     }
+
+    suspend fun deleteFolder(folder: FolderEntity) {
+        folderDao.delete(folder)
+    }
+
     init {
         CoroutineScope(Dispatchers.IO).launch {
             folderDao.getAllFolders().collect { folders ->
