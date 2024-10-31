@@ -1,6 +1,7 @@
 package com.example.mynewsapp.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +32,7 @@ class HomeFragment : BaseNewsFragment() {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
             dsViewModel.getCategory().collect { category ->
-                networkViewModel.getHeadlines(category, "us", 1)
+                networkViewModel.getHeadlines(category, 1)
             }
         }
     }

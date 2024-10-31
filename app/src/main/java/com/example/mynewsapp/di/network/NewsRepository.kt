@@ -8,12 +8,19 @@ import javax.inject.Inject
 class NewsRepository @Inject constructor(
     private val newsInterface: NewsInterface,
 ) {
-    fun getHeadlines(category: String,country: String, page: Int): Call<News> {
-        return newsInterface.getHeadLines(category,country,page)
+    fun getHeadlines(category: String, page: Int): Call<News> {
+        return newsInterface.getHeadLines(category,page)
     }
 
-    fun searchNews(query: String, page: Int): Call<News> {
-        return newsInterface.searchNews(query,page)
+    fun searchNewsWithDomains(domains:String,sortBy:String,query: String, page: Int): Call<News> {
+        return newsInterface.searchNewsWithDomains(domains,sortBy,query,page)
+    }
+    fun searchNewsWithExcludeDomains(excludeDomains:String,sortBy:String,query: String, page: Int): Call<News> {
+        return newsInterface.searchNewsWithExcludeDomains(excludeDomains,sortBy,query,page)
+    }
+
+    fun searchNewsWithoutDomains(sortOption: String, query: String, page: Int): Call<News> {
+        return newsInterface.searchNewsWithoutDomains(sortOption,query,page)
     }
 
 

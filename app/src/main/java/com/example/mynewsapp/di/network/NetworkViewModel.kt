@@ -31,10 +31,10 @@ class NetworkViewModel @Inject constructor(
 
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error.asStateFlow()
-    fun getHeadlines(category: String, country: String, page: Int) {
+    fun getHeadlines(category: String, page: Int) {
         _isLoading.value = true
         _error.value = null
-        val call = newsRepository.getHeadlines(category, country, page)
+        val call = newsRepository.getHeadlines(category, page)
         val savedArticleUrls = roomRepository.articleUrls.value
         Log.d("viewModel", savedArticleUrls.size.toString())
         call.enqueue(object : Callback<News> {
@@ -65,11 +65,60 @@ class NetworkViewModel @Inject constructor(
         })
     }
 
-    fun searchNews(query: String, page: Int) {
+    fun searchNewsWithDomains(domain:String?,sortBy:String?,query: String, page: Int) {
         _isLoading.value = true
         _error.value = null
+        var sortOption = "publishedAt"
         val savedArticleUrls = roomRepository.articleUrls.value
-        val call = newsRepository.searchNews(query, page)
+        if(sortBy!=null) {
+            sortOption = sortBy
+        }
+        val call = domain?.let {
+            newsRepository.searchNewsWithDomains(it, sortOption, query, page)
+        } ?: newsRepository.searchNewsWithoutDomains(sortOption, query, page)
+        // 요청 URL을 로그로 출력
+        Log.d("NetworkViewModel", "Request URL: ${call.request()}")
+
+        call.enqueue(object : Callback<News> {
+            override fun onResponse(call: Call<News>, response: Response<News>) {
+                if(response.isSuccessful){
+                    val news = response.body()
+                    val articles = news?.articles?.filter { it.title != "[Removed]" } ?: emptyList()
+                    _articles.value = articles.map { article ->
+                        val isSaved = savedArticleUrls.contains(article.url)
+                        article.copy(isFavorite = isSaved)
+                    }
+                }
+                else{
+                    val errorBody = response.errorBody()?.string()
+                    val errorMessage = when {
+                        errorBody?.contains("rate limit") == true -> "Rate limit exceeded"
+                        errorBody?.contains("invalid-api-key") == true -> "Invalid API key"
+                        else -> "Unknown error: ${response.code()}"
+                    }
+                    _error.value = errorMessage
+                }
+                _isLoading.value = false
+            }
+
+            override fun onFailure(call: Call<News>, t: Throwable) {
+                _error.value = "Network error: ${t.message}"
+                _isLoading.value = false
+            }
+        })
+    }
+
+    fun searchNewsWithExcludeDomains(domain:String?,sortBy: String?,query: String, page: Int) {
+        _isLoading.value = true
+        _error.value = null
+        var sortOption = "publishedAt"
+        val savedArticleUrls = roomRepository.articleUrls.value
+        if(sortBy!=null) {
+            sortOption = sortBy
+        }
+        val call = domain?.let {
+            newsRepository.searchNewsWithExcludeDomains(it, sortOption, query, page)
+        } ?: newsRepository.searchNewsWithoutDomains(sortOption, query, page)
 
         // 요청 URL을 로그로 출력
         Log.d("NetworkViewModel", "Request URL: ${call.request()}")

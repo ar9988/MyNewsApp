@@ -9,19 +9,37 @@ import retrofit2.http.Query
 const val BASE_URL = "https://newsapi.org/"
 const val API_KEY = "3b1a55634db24acdbb86d8eb9108dd7e"
 
-interface NewsInterface{
+interface NewsInterface {
     @GET("v2/top-headlines?&apiKey=$API_KEY&pageSize=100")
     fun getHeadLines(
         @Query("category") category: String,
-        @Query("country") country: String,
         @Query("page") page: Int,
         @Header("User-Agent") userAgent: String = "Mozilla/5.0"
     ): Call<News>
+
     @GET("v2/everything?apiKey=$API_KEY")
-    fun searchNews(
+    fun searchNewsWithDomains(
+        @Query("domains") domains: String,
+        @Query("sortBy") sortBy: String,
         @Query("q") q: String,
-        @Query("page") page : Int,
+        @Query("page") page: Int,
         @Header("User-Agent") userAgent: String = "Mozilla/5.0"
-        ) : Call<News>
+    ): Call<News>
+
+    @GET("v2/everything?apiKey=$API_KEY")
+    fun searchNewsWithExcludeDomains(
+        @Query("excludeDomains") excludeDomains: String,
+        @Query("sortBy") sortBy: String,
+        @Query("q") q: String,
+        @Query("page") page: Int,
+        @Header("User-Agent") userAgent: String = "Mozilla/5.0"
+    ): Call<News>
+
+    @GET("v2/everything?apiKey=$API_KEY")
+    fun searchNewsWithoutDomains(
+        @Query("sortBy") sortBy: String,
+        @Query("q") q: String,
+        @Query("page") page: Int
+    ): Call<News>
 
 }

@@ -21,29 +21,6 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/language_setting_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="32sp"
-            android:text="@string/select_country"
-            android:layout_marginTop="48dp"
-            android:layout_marginStart="24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/headline_txt"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/select_nation_btn"
-            android:textSize="20sp"
-            android:text="@string/select_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/language_setting_txt"
-            app:layout_constraintTop_toTopOf="@id/language_setting_txt"/>
-
-        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/interest_setting_txt"
             android:text="@string/resetting_interest"
             android:textStyle="bold"
@@ -51,8 +28,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            app:layout_constraintStart_toStartOf="@id/language_setting_txt"
-            app:layout_constraintTop_toBottomOf="@id/language_setting_txt"/>
+            android:layout_marginStart="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headline_txt"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/interest_setting_btn"
@@ -84,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
-            app:layout_constraintStart_toStartOf="@id/language_setting_txt"
+            app:layout_constraintStart_toStartOf="@id/interest_setting_txt"
             app:layout_constraintTop_toBottomOf="@id/search_setting_txt"/>
 
         <com.google.android.material.button.MaterialButton

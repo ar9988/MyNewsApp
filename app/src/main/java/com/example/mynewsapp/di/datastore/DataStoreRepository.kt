@@ -1,5 +1,6 @@
 package com.example.mynewsapp.di.datastore
 
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.IOException
 import androidx.datastore.preferences.core.Preferences
@@ -53,6 +54,7 @@ class DataStoreRepository @Inject constructor(
         Result.runCatching {
             dataStore.edit { preferences ->
                 preferences[COUNTRY_KEY] = country
+                Log.d("DataStoreRepository", "Saved Country: $country") // 저장 시 로그 추가
             }
         }
     }
@@ -70,7 +72,9 @@ class DataStoreRepository @Inject constructor(
                 .map { preferences ->
                     preferences[COUNTRY_KEY]
                 }
-            flow.firstOrNull() ?: ""
+            val value = flow.firstOrNull() ?: ""
+            Log.d("DataStoreRepository", "Fetched Country: $value") // 로그 추가
+            value
         }
     }
 
