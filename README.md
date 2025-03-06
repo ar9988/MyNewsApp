@@ -43,7 +43,7 @@
 ### 💻 안드로이드
 | Category     | TechStack                                                                |
 |--------------|--------------------------------------------------------------------------|
-| Architecture | MVVM                                                                     | 
+| Architecture | MVVM, SAA                                                                | 
 | Network      | Retrofit, OkHttp                                                         | 
 | DI           | Hilt                                                                     |
 | Asynchronous | Coroutines, Callback                                                     | 
