@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mynewsapp.databinding.FragmentFolderDialogBinding
 import com.example.mynewsapp.databinding.DialogCreateFolderBinding
 import com.example.mynewsapp.datasource.network.dto.Article
-import com.example.mynewsapp.di.room.RoomViewModel
+import com.example.mynewsapp.ui.viewmodel.RoomViewModel
 import com.example.mynewsapp.ui.adapter.FolderRecyclerAdapter
 import com.example.mynewsapp.ui.util.OnItemClickListener
 import com.example.mynewsapp.ui.util.ItemSpacingDecoration

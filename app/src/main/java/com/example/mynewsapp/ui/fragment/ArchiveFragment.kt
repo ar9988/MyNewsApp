@@ -14,11 +14,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mynewsapp.databinding.ArchiveFragmentBinding
-import com.example.mynewsapp.datasource.db.ArticleEntity
 import com.example.mynewsapp.datasource.db.toArticle
 import com.example.mynewsapp.datasource.network.dto.Article
 import com.example.mynewsapp.datasource.network.dto.Source
-import com.example.mynewsapp.di.room.RoomViewModel
+import com.example.mynewsapp.ui.viewmodel.RoomViewModel
 import com.example.mynewsapp.ui.adapter.FolderRecyclerAdapter
 import com.example.mynewsapp.ui.adapter.NewsRecyclerAdapter
 import com.example.mynewsapp.ui.util.OnCheckBoxClickListener

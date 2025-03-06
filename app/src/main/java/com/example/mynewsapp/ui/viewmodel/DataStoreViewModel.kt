@@ -1,4 +1,4 @@
-package com.example.mynewsapp.di.datastore
+package com.example.mynewsapp.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

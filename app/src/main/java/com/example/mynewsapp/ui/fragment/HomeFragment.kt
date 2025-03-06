@@ -1,13 +1,12 @@
 package com.example.mynewsapp.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynewsapp.databinding.HomeFragmentBinding
-import com.example.mynewsapp.di.datastore.DataStoreViewModel
+import com.example.mynewsapp.ui.viewmodel.DataStoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import androidx.fragment.app.viewModels

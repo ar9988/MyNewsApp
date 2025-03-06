@@ -11,8 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynewsapp.databinding.SearchFragmentBinding
-import com.example.mynewsapp.di.datastore.DataStoreViewModel
-import com.example.mynewsapp.di.network.NetworkViewModel
+import com.example.mynewsapp.ui.viewmodel.DataStoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch

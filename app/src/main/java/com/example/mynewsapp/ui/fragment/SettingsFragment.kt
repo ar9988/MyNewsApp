@@ -8,19 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.RadioGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.mynewsapp.R
 import com.example.mynewsapp.databinding.SettingsFragmentBinding
-import com.example.mynewsapp.di.datastore.DataStoreViewModel
-import com.example.mynewsapp.ui.main.MainActivity
+import com.example.mynewsapp.ui.viewmodel.DataStoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

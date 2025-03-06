@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mynewsapp.datasource.network.dto.Article
-import com.example.mynewsapp.di.network.NetworkViewModel
-import com.example.mynewsapp.di.room.RoomViewModel
+import com.example.mynewsapp.ui.viewmodel.NetworkViewModel
+import com.example.mynewsapp.ui.viewmodel.RoomViewModel
 import com.example.mynewsapp.ui.adapter.NewsRecyclerAdapter
 import com.example.mynewsapp.ui.util.ItemSpacingDecoration
 import com.example.mynewsapp.ui.util.OnCheckBoxClickListener

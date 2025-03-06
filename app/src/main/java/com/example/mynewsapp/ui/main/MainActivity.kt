@@ -11,14 +11,14 @@ import com.example.mynewsapp.ui.fragment.CategoryFragment
 import com.example.mynewsapp.ui.fragment.HomeFragment
 import com.example.mynewsapp.ui.fragment.SearchFragment
 import com.example.mynewsapp.ui.fragment.SettingsFragment
-import com.example.mynewsapp.di.datastore.DataStoreViewModel
+import com.example.mynewsapp.ui.viewmodel.DataStoreViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val dsViewModel:DataStoreViewModel by viewModels()
+    private val dsViewModel: DataStoreViewModel by viewModels()
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }

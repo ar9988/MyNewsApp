@@ -12,7 +12,7 @@ import com.example.mynewsapp.R
 import com.example.mynewsapp.databinding.CategorySelectBinding
 import com.example.mynewsapp.ui.adapter.CategoryRecyclerAdapter
 import com.example.mynewsapp.ui.model.CategoryItemModel
-import com.example.mynewsapp.di.datastore.DataStoreViewModel
+import com.example.mynewsapp.ui.viewmodel.DataStoreViewModel
 import com.example.mynewsapp.ui.util.OnItemClickListener
 import com.example.mynewsapp.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CategoryFragment: Fragment() {
-    private val dsViewModel:DataStoreViewModel by viewModels()
+    private val dsViewModel: DataStoreViewModel by viewModels()
     private var _binding:CategorySelectBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
