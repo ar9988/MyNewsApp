@@ -12,26 +12,30 @@
 ## 주요 기능
 ### 카테고리 설정 및 설정된 카테고리 뉴스 보기
   <p>
+     <img src="/images/1.png" width="200" style="margin: 8px" />
      <img src="/images/2.png" width="200" style="margin: 8px" />
-     <img src="/images/4.png" width="200" style="margin: 8px" />
   </p>
 
 ### 뉴스 검색
 > 검색할 도메인, 검색하지 않을 도메인 설정 가능
   <p>
-     <img src="/images/2.png" width="200" style="margin: 8px" />
-     <img src="/images/4.png" width="200" style="margin: 8px" />
+     <img src="/images/3.png" width="200" style="margin: 8px" />
   </p>
   
 ### 다시 보고 싶은 뉴스 url 저장기능
 > 폴더별로 분류 가능, 별을 클릭하여 간단하게 추가/삭제 가능
   <p>
-     <img src="/images/2.png" width="200" style="margin: 8px" />
      <img src="/images/4.png" width="200" style="margin: 8px" />
+     <img src="/images/5.png" width="200" style="margin: 8px" />
+     <img src="/images/6.png" width="200" style="margin: 8px" />
   </p>
 
 ### 기타 설정 화면
-
+  <p>
+     <img src="/images/7.png" width="200" style="margin: 8px" />
+     <img src="/images/8.png" width="200" style="margin: 8px" />
+  </p>
+  
 &nbsp;
 
 ## ⚒ 기술 스택
