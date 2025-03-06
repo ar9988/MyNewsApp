@@ -46,7 +46,7 @@
 | Architecture | MVVM                                                                     | 
 | Network      | Retrofit, OkHttp                                                         | 
 | DI           | Hilt                                                                     |
-| Asynchronous | Coroutines                                                               | 
+| Asynchronous | Coroutines, Callback                                                     | 
 | Jetpack      | Fragment, Lifecycle, Material Design Components                          |                                          
 
 
