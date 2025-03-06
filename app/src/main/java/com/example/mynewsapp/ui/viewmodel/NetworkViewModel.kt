@@ -134,7 +134,10 @@ class NetworkViewModel @Inject constructor(
                     val articles = news?.articles?.filter { it.title != "[Removed]" } ?: emptyList()
                     _articles.value = articles.map { article ->
                         val isSaved = savedArticleUrls.contains(article.url)
-                        article.copy(isFavorite = isSaved)
+                        article.copy(
+                            isFavorite = isSaved,
+                            title = article.title ?: "Default Title" // null일 경우 기본값 설정
+                        )
                     }
                 }
                 else{
